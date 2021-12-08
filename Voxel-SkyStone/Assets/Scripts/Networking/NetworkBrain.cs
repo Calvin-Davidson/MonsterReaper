@@ -8,16 +8,15 @@ public class NetworkBrain : MonoBehaviour
 
     private void Start()
     {
-        _client = new WebSocket("ws://localhost:80/");
+        _client = new WebSocket("ws://voxel-relay.herokuapp.com/");
         _client.OnMessage += (sender, e) =>
         {
             string jsonString = e.Data;
             Debug.Log("message received from " + ((WebSocket)sender).Url + ", data : " + e.Data);
         };
-        _client.OnError += (sender, e) =>
+        _client.OnOpen += (sender, args) =>
         {
-            string jsonString = e.Message;
-            Debug.Log("error from" + ((WebSocket)sender).Url + ", data : " + e.Message);
+            Debug.Log("connected opened");
         };
         _client.Connect();
         
