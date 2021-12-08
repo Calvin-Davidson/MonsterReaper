@@ -1,14 +1,39 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using WebSocketSharp;
 
 public class NetworkBrain : MonoBehaviour
 {
+    [SerializeField] private bool localHost;
+    [SerializeField] private bool connectOnAwake = false;
+    
     private WebSocket _client;
-
-    private void Start()
+    
+    private void Awake()
     {
-        _client = new WebSocket("ws://voxel-relay.herokuapp.com/");
+        if (connectOnAwake) Connect();
+    }
+    
+    private void Update()
+    {
+        if (_client == null) return;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            string message = "hello server!";
+            _client.Send(message);
+        }
+    }
+
+    
+    public void Connect()
+    {
+        StartCoroutine(TryConnect());
+    }
+    
+    private IEnumerator TryConnect()
+    {
+        _client = localHost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
         _client.OnMessage += (sender, e) =>
         {
             string jsonString = e.Data;
@@ -18,18 +43,17 @@ public class NetworkBrain : MonoBehaviour
         {
             Debug.Log("connected opened");
         };
-        _client.Connect();
-        
-    }
+        _client.ConnectAsync();
 
-
-    private void Update()
-    {
-        if (_client == null) return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        float waitedTime = 0;
+        while (waitedTime < 10)
         {
-            string message = "hello server!";
-            _client.Send(message);
+            waitedTime += Time.deltaTime;
+            if (_client.IsAlive) break;
+            yield return null;
         }
+
+        if (_client.IsAlive) print("succesfully connected");
+        else print("something went wrong while connecting");
     }
 }
