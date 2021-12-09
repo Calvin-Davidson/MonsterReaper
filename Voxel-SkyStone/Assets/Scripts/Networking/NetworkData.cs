@@ -1,4 +1,5 @@
 using UnityEngine;
+using WebSocketSharp;
 
 //[CreateAssetMenu(fileName = "NetworkData", menuName = "ScriptableObjects/NetworkData")]
 namespace Networking
@@ -7,7 +8,8 @@ namespace Networking
     {
         private int _myId;
         private int _playerTurnId;
-
+        private WebSocket _client;
+        
         public bool IsMyTurn()
         {
             return _myId == _playerTurnId;
@@ -23,6 +25,12 @@ namespace Networking
         {
             get => _playerTurnId;
             set => _playerTurnId = value;
+        }
+
+        public WebSocket Client
+        {
+            get => _client;
+            set => _client = value;
         }
     }
 }

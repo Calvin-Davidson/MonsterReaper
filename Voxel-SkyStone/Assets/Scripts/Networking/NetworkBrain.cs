@@ -11,10 +11,10 @@ namespace Networking
         [SerializeField] private bool localHost;
         [SerializeField] private bool connectOnAwake = false;
         [SerializeField] private NetworkData networkData;
-    
-        private WebSocket _client;
-
+        
         public UnityEvent onConnectionOpen = new UnityEvent();
+        public UnityEvent onConnectionFail = new UnityEvent();
+        public UnityEvent onConnectionSuccessful = new UnityEvent();
 
         private void Awake()
         {
@@ -28,8 +28,8 @@ namespace Networking
     
         private IEnumerator TryConnect()
         {
-            _client = localHost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
-            _client.OnMessage += (sender, e) =>
+            networkData.Client = localHost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
+            networkData.Client.OnMessage += (sender, e) =>
             {
                 JSONNode jsonNode = JSONNode.Parse(e.Data);
                 if (jsonNode["action"] == NetworkAction.Connected.ToString())
@@ -43,22 +43,31 @@ namespace Networking
                     Debug.Log("Changing player's turn");
                 }
             };
-            _client.OnOpen += (sender, args) =>
+            networkData.Client.OnOpen += (sender, args) =>
             {
                 Debug.Log("connected opened");
                 onConnectionOpen?.Invoke();
             };
-            _client.ConnectAsync();
+            networkData.Client.ConnectAsync();
 
             float waitedTime = 0;
             while (waitedTime < 10)
             {
                 waitedTime += Time.deltaTime;
-                if (_client.IsAlive) break;
+                if (networkData.Client.IsAlive) break;
                 yield return null;
             }
 
-            print(_client.IsAlive ? "successfully connected" : "something went wrong while connecting");
+            if (networkData.Client.IsAlive)
+            {
+                print("successfully connected");
+                onConnectionSuccessful?.Invoke();
+            }
+            else
+            {
+                print("something went wrong while connecting");
+                onConnectionFail?.Invoke();
+            }
         }
     }
 }
