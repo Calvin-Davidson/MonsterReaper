@@ -154,6 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localHost: 1
   connectOnAwake: 1
+  networkData: {fileID: 11400000, guid: b9abef8ac62faa84a8f4276aa2fd55e4, type: 2}
+  onConnectionOpen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &279727059
 Transform:
   m_ObjectHideFlags: 0
