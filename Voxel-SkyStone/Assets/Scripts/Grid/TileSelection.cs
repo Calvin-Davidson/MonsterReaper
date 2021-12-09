@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Grid;
 using Toolbox.MethodExtensions;
 using UnityEngine;
 
 public class TileSelection : MonoBehaviour
 {
     private SkystoneGrid _skystoneGrid;
+
+    [SerializeField] private int playerTeam;
+    [SerializeField] private TileScriptableObject selectedTile;
 
     private void Awake()
     {
@@ -23,8 +27,9 @@ public class TileSelection : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 hit.transform.gameObject.TryGetComponent<Stone>(out Stone clickedStone);
-                
-                Debug.Log(clickedStone.GridIndex);
+
+                clickedStone.TeamSide = playerTeam;
+                clickedStone.StoneData = selectedTile;
             }
         }
     }

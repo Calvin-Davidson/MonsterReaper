@@ -16,4 +16,15 @@ public class Stone : MonoBehaviour
         get => gridIndex;
         set => gridIndex = value;
     }
+
+    public int TeamSide
+    {
+        get => teamSide;
+        set => teamSide = value;
+    }
+    public TileScriptableObject StoneData
+    {
+        get => stoneData;
+        set => stoneData = value;
+    }
 }
