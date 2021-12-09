@@ -16,6 +16,8 @@ namespace Networking
         public UnityEvent onConnectionFail = new UnityEvent();
         public UnityEvent onConnectionSuccessful = new UnityEvent();
 
+        public UnityEvent onGameStart = new UnityEvent();
+
         private void Awake()
         {
             if (connectOnAwake) Connect();
@@ -35,12 +37,11 @@ namespace Networking
                 if (jsonNode["action"] == NetworkAction.Connected.ToString())
                 {
                     networkData.MyId = jsonNode["playerId"];
-                    Debug.Log("received connected");
                 }
                 if (jsonNode["action"] == NetworkAction.StartGame.ToString())
                 {
                     networkData.PlayerTurnId = jsonNode["StartingPlayerId"];
-                    Debug.Log("Changing player's turn");
+                    onGameStart?.Invoke();
                 }
             };
             networkData.Client.OnOpen += (sender, args) =>
