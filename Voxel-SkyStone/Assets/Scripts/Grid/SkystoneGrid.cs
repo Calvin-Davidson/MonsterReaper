@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using Toolbox.MethodExtensions;
 using UnityEngine;
 
 public class SkystoneGrid : MonoBehaviour
 {
+    private List<Stone> _stones = new List<Stone>();
+
+    public List<Stone> Stones => _stones;
+
     [SerializeField] private int gridSize = 3;
     [SerializeField] private float tileSize = 1;
     [SerializeField] private float tileGap = 0;
@@ -12,20 +17,27 @@ public class SkystoneGrid : MonoBehaviour
 
     private BoxCollider _tileCollider;
 
-    private void Awake()
+    private void Start()
     {
-        Transform cam = Camera.main.gameObject.transform;
-        cam.position = new Vector3(gridSize / 2, gridSize, -gridSize);
-        cam.Rotate(new Vector3(65, 0, 0)); 
-        
+        if (Camera.main is { })
+        {
+            Transform cam = Camera.main.gameObject.transform;
+            cam.position = new Vector3(gridSize / 2, gridSize, -gridSize);
+            cam.Rotate(new Vector3(65, 0, 0));
+        }
+
         for (int y = 0; y < gridSize; y++)
         {
             for (int x = 0; x < gridSize; x++)
             {
-                GameObject gridCollider = Instantiate(tileGameObject, new Vector3(x * (1 + tileGap), 0, -y * (1 + tileGap)), Quaternion.identity);
-                gridCollider.transform.parent = gameObject.transform;
-                _tileCollider = gridCollider.AddComponent<BoxCollider>();
-                _tileCollider.size = new Vector3(tileSize, 0.3f, tileSize);
+                GameObject stoneObject = Instantiate(tileGameObject, new Vector3(x * (1 + tileGap), 0, -y * (1 + tileGap)), Quaternion.identity);
+                Stone stone = stoneObject.GetOrAddComponent<Stone>();
+                stone.GridIndex = x + y*gridSize;
+                stoneObject.transform.parent = gameObject.transform;
+                _tileCollider = stoneObject.AddComponent<BoxCollider>();
+                _tileCollider.size = new Vector3(tileSize, 0.1f, tileSize);
+                
+                _stones.Add(stone);
             }
         }
 
@@ -33,7 +45,8 @@ public class SkystoneGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSize + 1; x++)
             {
-                Instantiate(overlayGameObject, new Vector3((x - tileSize/2) * (1 + tileGap), 0, (-y + tileSize/2) * (1 + tileGap)), Quaternion.identity);
+                GameObject betweenTile = Instantiate(overlayGameObject, new Vector3((x - tileSize/2) * (1 + tileGap), 0, (-y + tileSize/2) * (1 + tileGap)), Quaternion.identity);
+                betweenTile.transform.parent = gameObject.transform;
             }
         }
     }
