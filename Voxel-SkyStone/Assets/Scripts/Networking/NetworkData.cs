@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using WebSocketSharp;
@@ -12,23 +13,6 @@ namespace Networking
         private int _myId;
         private int _playerTurnId;
         private WebSocket _client;
-        
-        public bool IsMyTurn()
-        {
-            return _myId == _playerTurnId;
-        }
-    
-        public int MyId
-        {
-            get => _myId;
-            set => _myId = value;
-        }
-
-        public int PlayerTurnId
-        {
-            get => _playerTurnId;
-            set => _playerTurnId = value;
-        }
 
         public WebSocket Client
         {
@@ -37,32 +21,39 @@ namespace Networking
         }
 
 
-        private void Connect()
+        public bool Localhost => localhost;
+        public event Action OnConnectionSuccessful;
+        public event Action OnConnectionFail;
+        
+        public bool IsMyTurn()
         {
-            var tryConnect = TryConnect();
+            return _myId == _playerTurnId;
         }
-            
-        private IEnumerator TryConnect()
+        
+        public void Connect()
         {
-            Client = localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
-            Client.ConnectAsync();
+            _client = localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
+            _client.WaitTime = TimeSpan.FromSeconds(10);
+            _client.Connect();
+            
+            _client.OnOpen += (sender, args) =>
+            {
+                OnConnectionSuccessful?.Invoke();
+                Debug.Log("connection opened");
+            };
+            
+            _client.OnClose += (sender, args) =>
+            {
+                OnConnectionFail?.Invoke();
+                Debug.Log("connection closed");
+            };
 
-            float waitedTime = 0;
-            while (waitedTime < 10)
+            _client.OnError += (sender, args) =>
             {
-                waitedTime += Time.deltaTime;
-                if (Client.IsAlive) break;
-                yield return null;
-            }
-
-            if (Client.IsAlive)
-            {
-                onConnectionSuccessful?.Invoke();
-            }
-            else
-            {
-                onConnectionFail?.Invoke();
-            }
+                Debug.Log(args.Exception);
+                Debug.Log(args.Message);
+                Debug.Log("error");
+            };
         }
     }
 }
