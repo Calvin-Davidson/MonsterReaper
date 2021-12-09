@@ -30,6 +30,7 @@ namespace Networking
         }
 
 
+        public int MyId => _myId;
         public bool Localhost => localhost;
 
 

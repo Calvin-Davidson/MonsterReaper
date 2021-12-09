@@ -24,7 +24,7 @@ namespace Grid
             get => isWall;
             set => isWall = value;
         }
-
+        
         public GameObject Image
         {
             get => image;
