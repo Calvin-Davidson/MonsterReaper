@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Grid;
+using Networking;
 using Toolbox.MethodExtensions;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ public class TileSelection : MonoBehaviour
 
     [SerializeField] private int playerTeam;
     [SerializeField] private TileScriptableObject selectedTile;
-
+    [SerializeField] private NetworkData networkData;
+    
     private void Awake()
     {
         _skystoneGrid = FindObjectOfType<SkystoneGrid>();
@@ -19,18 +21,18 @@ public class TileSelection : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!networkData.IsMyTurn()) return;
+        if (!Input.GetMouseButtonDown(0)) return;
+        
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (!hit.transform.gameObject.TryGetComponent(out Stone clickedStone)) return;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                hit.transform.gameObject.TryGetComponent<Stone>(out Stone clickedStone);
-
-                clickedStone.TeamSide = playerTeam;
-                clickedStone.StoneData = selectedTile;
-            }
+            clickedStone.TeamSide = networkData.MyId;
+            clickedStone.StoneData = selectedTile;
         }
     }
 }
