@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SimpleJSON;
 using UnityEngine;
 using WebSocketSharp;
 
@@ -9,10 +10,18 @@ namespace Networking
     public class NetworkData : ScriptableObject
     {
         [SerializeField] private bool localhost;
-        
+
         private int _myId;
         private int _playerTurnId;
         private WebSocket _client;
+        public event Action OnConnectionSuccessful;
+        public event Action OnConnectionFail;
+        public NetworkEventContainer networkEvents;
+
+        private void Awake()
+        {
+            networkEvents = new NetworkEventContainer();
+        }
 
         public WebSocket Client
         {
@@ -22,38 +31,41 @@ namespace Networking
 
 
         public bool Localhost => localhost;
-        public event Action OnConnectionSuccessful;
-        public event Action OnConnectionFail;
-        
+
+
         public bool IsMyTurn()
         {
             return _myId == _playerTurnId;
         }
-        
-        public void Connect()
+
+        public void InitEvents()
         {
-            _client = localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
-            _client.WaitTime = TimeSpan.FromSeconds(10);
-            _client.Connect();
-            
             _client.OnOpen += (sender, args) =>
             {
                 OnConnectionSuccessful?.Invoke();
                 Debug.Log("connection opened");
             };
-            
+
             _client.OnClose += (sender, args) =>
             {
                 OnConnectionFail?.Invoke();
                 Debug.Log("connection closed");
             };
 
-            _client.OnError += (sender, args) =>
-            {
-                Debug.Log(args.Exception);
-                Debug.Log(args.Message);
-                Debug.Log("error");
-            };
+            _client.OnMessage += (sender, args) => { HandleMessage(args); };
+        }
+
+        private void HandleMessage(MessageEventArgs args)
+        {
+            Debug.Log(args.Data);
+            JSONNode jsonNode = JSONNode.Parse(args.Data);
+            string actionName = jsonNode["action"];
+
+            if (actionName == NetworkAction.Connected.ToString()) networkEvents.onConnected?.Invoke(jsonNode);
+            if (actionName == NetworkAction.EndGame.ToString()) networkEvents.onGameEnd?.Invoke(jsonNode);
+            if (actionName == NetworkAction.StartGame.ToString()) networkEvents.onGameStart?.Invoke(jsonNode);
+            if (actionName == NetworkAction.TurnSwitch.ToString()) networkEvents.onTurnSwitch?.Invoke(jsonNode);
+            if (actionName == NetworkAction.PlaceStone.ToString()) networkEvents.onStonePlace?.Invoke(jsonNode);
         }
     }
 }

@@ -297,8 +297,8 @@ MonoBehaviour:
   MouseClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: b9abef8ac62faa84a8f4276aa2fd55e4, type: 2}
-        m_TargetAssemblyTypeName: Networking.NetworkData, Assembly-CSharp
+      - m_Target: {fileID: 544064760}
+        m_TargetAssemblyTypeName: Networking.NetworkConnector, Assembly-CSharp
         m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
@@ -394,8 +394,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 544064758}
-  - component: {fileID: 544064759}
+  - component: {fileID: 544064760}
   - component: {fileID: 544064757}
+  - component: {fileID: 544064759}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -412,40 +413,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 544064756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb50d69f939aa643a777a339a701d74, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c07f2e55956b3b4aa1bf00fa81efb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   networkData: {fileID: 11400000, guid: b9abef8ac62faa84a8f4276aa2fd55e4, type: 2}
-  onConnectionSuccess:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 912361370}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onConnectionFail:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 41613136}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!4 &544064758
 Transform:
   m_ObjectHideFlags: 0
@@ -473,6 +444,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Game
+--- !u!114 &544064760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544064756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caebf8e3c7b21ee4fb1c124db8510a97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkData: {fileID: 11400000, guid: b9abef8ac62faa84a8f4276aa2fd55e4, type: 2}
+  onConnectionFail:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 41613136}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onConnectionSuccessful:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 912361370}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &912361370
 GameObject:
   m_ObjectHideFlags: 0
