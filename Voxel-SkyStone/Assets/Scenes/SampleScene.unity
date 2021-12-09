@@ -152,6 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caebf8e3c7b21ee4fb1c124db8510a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localHost: 1
+  connectOnAwake: 1
+  networkData: {fileID: 11400000, guid: b9abef8ac62faa84a8f4276aa2fd55e4, type: 2}
+  onConnectionOpen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &279727059
 Transform:
   m_ObjectHideFlags: 0
