@@ -101,6 +101,11 @@ public class NetworkClient : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        _client?.Close();
+    }
+
     public static NetworkClient Instance
     {
         get
