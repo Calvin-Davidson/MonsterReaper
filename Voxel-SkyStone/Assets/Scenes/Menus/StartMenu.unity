@@ -1006,6 +1006,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1252177042}
     m_Modifications:
+    - target: {fileID: 1432906354, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
+      propertyPath: onMouseExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432906354, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
+      propertyPath: onMouseEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432906354, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
+      propertyPath: onMouseExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Inactive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432906354, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
+      propertyPath: onMouseEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Active
+      objectReference: {fileID: 0}
     - target: {fileID: 7661023117681171308, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1199,6 +1215,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
+      propertyPath: onMouseExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
       propertyPath: onMouseClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
@@ -1213,6 +1233,10 @@ PrefabInstance:
     - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
       propertyPath: onMouseClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
       value: Connect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
+      propertyPath: onMouseEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
       objectReference: {fileID: 0}
     - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
       propertyPath: onMouseClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1241,6 +1265,14 @@ PrefabInstance:
     - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
       propertyPath: onMouseClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
+      propertyPath: onMouseExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Inactive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
+      propertyPath: onMouseEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Active
       objectReference: {fileID: 0}
     - target: {fileID: 2007132706, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
       propertyPath: onMouseClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
