@@ -53,7 +53,7 @@ public class StonesContainerEditor : EditorWindow
         for (var i = 0; i < names.Length; i++)
         {
             var stoneName = names[i];
-            if (!string.IsNullOrEmpty(filter) && !stoneName.StartsWith(filter)) return;
+            if (!string.IsNullOrEmpty(filter) && !stoneName.StartsWith(filter)) continue;
 
             RenderStoneItem(scrollView, stoneName);
         }
