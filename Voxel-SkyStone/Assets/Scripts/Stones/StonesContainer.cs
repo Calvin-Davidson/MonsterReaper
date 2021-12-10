@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu]  // Only 1 instance should be made!
+//[CreateAssetMenu]  // Only 1 instance should be made!
 public class StonesContainer : ScriptableObject
 {
   [SerializeReference] private List<StoneData> stones = new List<StoneData>();
