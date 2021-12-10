@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73ce66224e689241915781547a6d1fd, type: 3}
   m_Name: NetworkData
   m_EditorClassIdentifier: 
+  localhost: 1

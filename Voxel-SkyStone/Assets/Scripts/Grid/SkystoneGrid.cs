@@ -15,9 +15,7 @@ public class SkystoneGrid : MonoBehaviour
 
     [SerializeField] private GameObject tileGameObject;
     [SerializeField] private GameObject overlayGameObject;
-
-    private BoxCollider _tileCollider;
-
+    
     private void Start()
     {
         if (Camera.main is { })
@@ -27,6 +25,12 @@ public class SkystoneGrid : MonoBehaviour
             cam.Rotate(new Vector3(65, 0, 0));
         }
 
+        InstantiateTiles();
+        InstantiateOverlay();
+    }
+
+    private void InstantiateTiles()
+    {
         for (int y = 0; y < gridSize; y++)
         {
             for (int x = 0; x < gridSize; x++)
@@ -35,13 +39,16 @@ public class SkystoneGrid : MonoBehaviour
                 Stone stone = stoneObject.GetOrAddComponent<Stone>();
                 stone.GridIndex = x + y*gridSize;
                 stoneObject.transform.parent = gameObject.transform;
-                _tileCollider = stoneObject.AddComponent<BoxCollider>();
-                _tileCollider.size = new Vector3(tileSize, 0.1f, tileSize);
+                var tileCollider = stoneObject.AddComponent<BoxCollider>();
+                tileCollider.size = new Vector3(tileSize, 0.1f, tileSize);
                 
                 _stones.Add(stone);
             }
-        }
+        } 
+    }
 
+    private void InstantiateOverlay()
+    {
         for (int y = 0; y < gridSize + 1; y++)
         {
             for (int x = 0; x < gridSize + 1; x++)
