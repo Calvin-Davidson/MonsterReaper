@@ -28,9 +28,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 804ec41f2abcf3d48a9eb2067d54e903
+  name: Red
   tileObject: {fileID: 0}
-  texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+  texture: {fileID: 2800000, guid: aa333374ce22b2b4bb91397c358c79c3, type: 3}
   topDamage: 0
   rightDamage: 0
   bottomDamage: 0
@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: d0b786ff0d071e045bdc28563591fca2
+  name: Green
   tileObject: {fileID: 0}
-  texture: {fileID: 28684132378477856, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  texture: {fileID: 2800000, guid: be3020621972bf441a3edca037669b00, type: 3}
   topDamage: 0
   rightDamage: 0
   bottomDamage: 0
@@ -66,9 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: f0702b700383bad4ab4255174c2069dc
+  name: Blue
   tileObject: {fileID: 0}
-  texture: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  texture: {fileID: 2800000, guid: 18806109ccda65e499b422093ff06662, type: 3}
   topDamage: 0
   rightDamage: 0
   bottomDamage: 0

@@ -15,7 +15,8 @@
                 <uie:IntegerField label="RightDamage" value="42" name="StoneRightDamage" style="height: 20px;" />
                 <uie:IntegerField label="BottomDamage" value="42" name="StoneBottomDamage" />
                 <uie:IntegerField label="LeftDamage" value="42" name="StoneLeftDamage" />
-                <uie:ObjectField label="Image" name="StoneImage" />
+                <uie:ObjectField label="TileObject" name="StoneTileObject" />
+                <uie:ObjectField label="Texture" name="StoneTexture" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

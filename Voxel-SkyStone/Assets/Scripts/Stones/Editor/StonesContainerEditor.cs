@@ -109,8 +109,12 @@ public class StonesContainerEditor : EditorWindow
         var nameField = rootVisualElement.Q<TextField>("StoneName");
         nameField.value = _selectedStoneName;
 
-        var imageField = rootVisualElement.Q<ObjectField>("StoneImage");
-        imageField.value = SelectedStone.TileObject;
+        var gameObjectField = rootVisualElement.Q<ObjectField>("StoneTileObject");
+        gameObjectField.value = SelectedStone.TileObject;
+        
+        var textureField = rootVisualElement.Q<ObjectField>("StoneTexture");
+        textureField.value = SelectedStone.TileObject;
+
     }
 
     private void SetupStoneSettings()
@@ -123,9 +127,13 @@ public class StonesContainerEditor : EditorWindow
             RenderScrollView();
         });
         
-        var imageField = rootVisualElement.Q<ObjectField>("StoneImage");
-        imageField.objectType = typeof(GameObject);
-        imageField.RegisterValueChangedCallback(evt =>  SelectedStone.SetImage(evt.newValue as GameObject));
+        var gameObjectField = rootVisualElement.Q<ObjectField>("StoneTileObject");
+        gameObjectField.objectType = typeof(GameObject);
+        gameObjectField.RegisterValueChangedCallback(evt =>  SelectedStone.SetImage(evt.newValue as GameObject));
+
+        var textureField = rootVisualElement.Q<ObjectField>("StoneTexture");
+        textureField.objectType = typeof(Texture);
+        textureField.RegisterValueChangedCallback(evt =>  SelectedStone.SetTexture(evt.newValue as Texture));
         
         rootVisualElement.Q<IntegerField>("StoneTopDamage").RegisterValueChangedCallback(evt => SelectedStone.SetTopDamage(evt.newValue));
         rootVisualElement.Q<IntegerField>("StoneRightDamage").RegisterValueChangedCallback(evt => SelectedStone.SetRightDamage(evt.newValue));
