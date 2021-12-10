@@ -12,7 +12,7 @@ namespace Grid
 
         public void UpdateStoneData()
         {
-            GameObject tileImage = Instantiate(stoneData.Image, transform.position + _imageOffset, Quaternion.identity);
+            GameObject tileImage = Instantiate(stoneData.TileObject, transform.position + _imageOffset, Quaternion.identity);
             tileImage.transform.parent = transform;
             name = stoneData.name;
         }

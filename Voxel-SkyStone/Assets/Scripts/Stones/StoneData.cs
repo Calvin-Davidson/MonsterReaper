@@ -7,7 +7,8 @@ using UnityEngine;
 public class StoneData : ScriptableObject
 {
     [SerializeReference] private new string name;
-    [SerializeReference] private GameObject image;
+    [SerializeReference] private GameObject tileObject;
+    [SerializeReference] private Texture texture;
     [SerializeReference] private int topDamage;
     [SerializeReference] private int rightDamage;
     [SerializeReference] private int bottomDamage;
@@ -15,7 +16,7 @@ public class StoneData : ScriptableObject
 
     public string Name => name;
 
-    public GameObject Image => image;
+    public GameObject TileObject => tileObject;
 
     public int TopDamage => topDamage;
 
@@ -24,6 +25,8 @@ public class StoneData : ScriptableObject
     public int BottomDamage => bottomDamage;
 
     public int LeftDamage => leftDamage;
+
+    public Texture Texture => texture;
 
 #if UNITY_EDITOR
     public void SetName(string newName)
@@ -34,7 +37,7 @@ public class StoneData : ScriptableObject
 
     public void SetImage(GameObject newImage)
     {
-        this.image = newImage;
+        this.tileObject = newImage;
         EditorUtility.SetDirty(this);
     }
 
@@ -59,6 +62,12 @@ public class StoneData : ScriptableObject
     public void SetRightDamage(int newDamage)
     {
         this.rightDamage = newDamage;
+        EditorUtility.SetDirty(this);
+    }
+
+    public void SetTexture(Texture newTexture)
+    {
+        this.texture = newTexture;
         EditorUtility.SetDirty(this);
     }
 #endif

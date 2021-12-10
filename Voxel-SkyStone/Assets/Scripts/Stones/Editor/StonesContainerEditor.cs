@@ -110,7 +110,7 @@ public class StonesContainerEditor : EditorWindow
         nameField.value = _selectedStoneName;
 
         var imageField = rootVisualElement.Q<ObjectField>("StoneImage");
-        imageField.value = SelectedStone.Image;
+        imageField.value = SelectedStone.TileObject;
     }
 
     private void SetupStoneSettings()
