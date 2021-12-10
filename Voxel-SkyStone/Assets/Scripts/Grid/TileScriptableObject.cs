@@ -6,7 +6,6 @@ namespace Grid
     public class TileScriptableObject : ScriptableObject
     {
         [SerializeField] private new string name;
-        [SerializeField] private bool isWall;
         [SerializeField] private GameObject image;
         [SerializeField] private int topDamage;
         [SerializeField] private int rightDamage;
@@ -17,12 +16,6 @@ namespace Grid
         {
             get => name;
             set => name = value;
-        }
-
-        public bool IsWall
-        {
-            get => isWall;
-            set => isWall = value;
         }
         
         public GameObject Image

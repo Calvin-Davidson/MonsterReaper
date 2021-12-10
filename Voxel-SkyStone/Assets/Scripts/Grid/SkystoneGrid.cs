@@ -15,6 +15,8 @@ public class SkystoneGrid : MonoBehaviour
 
     [SerializeField] private GameObject tileGameObject;
     [SerializeField] private GameObject overlayGameObject;
+
+    [SerializeField] private GameObject[] arrowObjects;
     
     private void Start()
     {
