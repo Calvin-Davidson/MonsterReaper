@@ -2,14 +2,21 @@
     <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
         <ui:VisualElement name="Stones" style="width: 200px; flex-direction: column; background-color: rgb(43, 43, 43);">
             <ui:VisualElement name="StonesMenu" style="flex-shrink: 0; flex-direction: column; background-color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(79, 79, 79);">
-                <ui:TextField picking-mode="Ignore" value="" name="StonesFilter" style="background-color: rgb(255, 255, 255);">
+                <ui:TextField picking-mode="Ignore" name="StonesFilter" style="background-color: rgb(255, 255, 255);">
                     <ui:Button text="+" display-tooltip-when-elided="true" name="CreateStoneButton" />
                 </ui:TextField>
             </ui:VisualElement>
-            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="StonesScrollView">
-                <ui:VisualElement />
-            </ui:ScrollView>
+            <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" name="StonesScrollView" />
         </ui:VisualElement>
-        <ui:VisualElement name="SelectedStoneSettings" style="flex-grow: 1;" />
+        <ui:VisualElement name="SelectedStoneSettings" style="flex-grow: 1;">
+            <ui:VisualElement name="StoneSettings" style="opacity: 1;">
+                <uie:IntegerField label="TopDamage" value="42" name="StoneTopDamage" />
+                <uie:IntegerField label="RightDamage" value="42" name="StoneRightDamage" style="height: 20px;" />
+                <uie:IntegerField label="BottomDamage" value="42" name="StoneBottomDamage" />
+                <uie:IntegerField label="LeftDamage" value="42" name="StoneLeftDamage" />
+                <uie:ObjectField label="Image" name="StoneImage" />
+                <ui:TextField picking-mode="Ignore" label="Name" value="filler text" text="filler text" name="StoneName" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu]  // Only 1 instance should be made!
+//[CreateAssetMenu]  // Only 1 instance should be made!
 public class StonesContainer : ScriptableObject
 {
   private List<StoneData> _stones = new List<StoneData>();
@@ -12,6 +12,11 @@ public class StonesContainer : ScriptableObject
   public string[] GetStoneNames()
   {
     return _stones.Select(data => data.Name).ToArray();
+  }
+
+  public StoneData GetStoneByName(string stoneName)
+  {
+    return _stones.FirstOrDefault(data => data.Name == stoneName);
   }
 
 
