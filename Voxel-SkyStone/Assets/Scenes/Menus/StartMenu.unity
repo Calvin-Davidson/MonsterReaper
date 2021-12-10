@@ -390,6 +390,25 @@ MonoBehaviour:
     onStonePlace:
       m_PersistentCalls:
         m_Calls: []
+--- !u!1 &824268387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7661023117681171309, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
+  m_PrefabInstance: {fileID: 1432906350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &824268390
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824268387}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.79
+  m_Height: 6.17
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &912361370
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +651,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &951828562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 738250314429992666, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
+  m_PrefabInstance: {fileID: 2007132702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &951828565
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951828562}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.79
+  m_Height: 6.17
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1088099306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1052,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exit_Button
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1432906355, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}
 --- !u!4 &1432906351 stripped
 Transform:
@@ -1382,7 +1421,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2007132707, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b4105644472aca44ea2d87e74422bda2, type: 3}
 --- !u!4 &2007132703 stripped
 Transform:
