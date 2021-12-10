@@ -10,12 +10,12 @@
         </ui:VisualElement>
         <ui:VisualElement name="SelectedStoneSettings" style="flex-grow: 1;">
             <ui:VisualElement name="StoneSettings" style="opacity: 1;">
+                <ui:TextField picking-mode="Ignore" label="Name" name="StoneName" />
                 <uie:IntegerField label="TopDamage" value="42" name="StoneTopDamage" />
                 <uie:IntegerField label="RightDamage" value="42" name="StoneRightDamage" style="height: 20px;" />
                 <uie:IntegerField label="BottomDamage" value="42" name="StoneBottomDamage" />
                 <uie:IntegerField label="LeftDamage" value="42" name="StoneLeftDamage" />
                 <uie:ObjectField label="Image" name="StoneImage" />
-                <ui:TextField picking-mode="Ignore" label="Name" value="filler text" text="filler text" name="StoneName" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
