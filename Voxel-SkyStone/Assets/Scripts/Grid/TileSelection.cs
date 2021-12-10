@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Grid;
-using Toolbox.MethodExtensions;
 using UnityEngine;
 
 public class TileSelection : MonoBehaviour
@@ -30,6 +26,8 @@ public class TileSelection : MonoBehaviour
 
                 clickedStone.TeamSide = playerTeam;
                 clickedStone.StoneData = selectedTile;
+                
+                clickedStone.UpdateStoneData();
             }
         }
     }
