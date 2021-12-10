@@ -71,6 +71,7 @@ public class StonesContainerEditor : EditorWindow
             {
                 GetData().DeleteStone(stoneName);
                 RenderScrollView();
+                RenderStoneSettings();
             });
         }));
 
@@ -84,7 +85,7 @@ public class StonesContainerEditor : EditorWindow
 
     private void RenderStoneSettings()
     {
-        if (String.IsNullOrEmpty(_selectedStoneName))
+        if (String.IsNullOrEmpty(_selectedStoneName) || GetData().GetStoneByName(_selectedStoneName) == null)
         {
             rootVisualElement.Q<VisualElement>("StoneSettings").style.visibility = Visibility.Hidden;
             return;
