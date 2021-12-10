@@ -12,5 +12,6 @@ namespace Networking
         EndGame,
         TurnSwitch,
         PlaceStone,
+        OpponentLeave,
     }
 }

@@ -106,13 +106,5 @@ public class NetworkClient : MonoBehaviour
         _client?.Close();
     }
 
-    public static NetworkClient Instance
-    {
-        get
-        {
-            //if (_instance == null)
-              //  return new GameObject("NetworkClient", typeof(NetworkClient)).GetComponent<NetworkClient>();
-            return _instance;
-        }
-    }
+    public static NetworkClient Instance => _instance;
 }

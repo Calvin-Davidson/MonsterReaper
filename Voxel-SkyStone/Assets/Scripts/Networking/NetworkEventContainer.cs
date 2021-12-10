@@ -13,5 +13,6 @@ namespace Networking
         public UnityEvent<JSONNode> onGameEnd = new UnityEvent<JSONNode>();
         public UnityEvent<JSONNode> onTurnSwitch = new UnityEvent<JSONNode>();
         public UnityEvent<JSONNode> onStonePlace = new UnityEvent<JSONNode>();
+        public UnityEvent<JSONNode> onOpponentLeave = new UnityEvent<JSONNode>();
     }
 }
