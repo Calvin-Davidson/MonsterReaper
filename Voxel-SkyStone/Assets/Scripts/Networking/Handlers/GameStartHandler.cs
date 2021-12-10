@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Networking;
 using SimpleJSON;
 using UnityEngine;
@@ -8,20 +9,26 @@ using UnityEngine.SceneManagement;
 
 public class GameStartHandler : MonoBehaviour
 {
-    [SerializeField] private NetworkData networkData;
-
-    private void Awake()
+    private void Start()
     {
-        networkData.networkEvents.onGameStart.AddListener(StartGame);
+        NetworkClient.Instance.Events.onGameStart.AddListener(StartGame);
     }
-
+    
     private void OnDisable()
     {
-        networkData.networkEvents.onGameStart.RemoveListener(StartGame);
+        NetworkClient.Instance.Events.onGameStart.RemoveListener(StartGame);
     }
 
     private void StartGame(JSONNode node)
     {
-        GetComponent<SceneSwitcher>().LoadScene();
+        Debug.Log("starting game scene");
+        SceneManager.LoadScene(1);
+        StartCoroutine(test());
+    }
+
+    private IEnumerator test()
+    {
+        Debug.Log("yest");
+        yield return null;
     }
 }
