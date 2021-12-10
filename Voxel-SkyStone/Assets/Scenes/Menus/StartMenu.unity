@@ -356,7 +356,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544064756}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fd035c670d063a439fb6abc9bacf166, type: 3}
   m_Name: 
@@ -387,6 +387,9 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     onStonePlace:
+      m_PersistentCalls:
+        m_Calls: []
+    onOpponentLeave:
       m_PersistentCalls:
         m_Calls: []
 --- !u!1 &824268387 stripped
