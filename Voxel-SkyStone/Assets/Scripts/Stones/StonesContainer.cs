@@ -1,22 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-//[CreateAssetMenu]  // Only 1 instance should be made!
+[CreateAssetMenu]  // Only 1 instance should be made!
 public class StonesContainer : ScriptableObject
 {
-  private List<StoneData> _stones = new List<StoneData>();
+  [SerializeReference] private List<StoneData> stones = new List<StoneData>();
   
   public string[] GetStoneNames()
   {
-    return _stones.Select(data => data.Name).ToArray();
+    return stones.Select(data => data.Name).ToArray();
   }
 
   public StoneData GetStoneByName(string stoneName)
   {
-    return _stones.FirstOrDefault(data => data.Name == stoneName);
+    return stones.FirstOrDefault(data => data.Name == stoneName);
   }
 
 
@@ -28,7 +29,7 @@ public class StonesContainer : ScriptableObject
 
     instance.SetName(GUID.Generate().ToString());
 
-    _stones.Add(instance);
+    stones.Add(instance);
 
     AssetDatabase.AddObjectToAsset(instance, this);
     AssetDatabase.SaveAssets();
@@ -36,10 +37,10 @@ public class StonesContainer : ScriptableObject
 
   public void DeleteStone(string stoneName)
   {
-    var stone = _stones.FirstOrDefault(data => data.Name == stoneName);
+    var stone = stones.FirstOrDefault(data => data.Name == stoneName);
     if (stone == null) return;
 
-    _stones.Remove(stone);
+    stones.Remove(stone);
     AssetDatabase.RemoveObjectFromAsset(stone);
     AssetDatabase.SaveAssets();
   }

@@ -1,41 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9152316047599399104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Stone
-  image: {fileID: 0}
-  topDamage: 0
-  rightDamage: 0
-  bottomDamage: 0
-  leftDamage: 0
---- !u!114 &-6233524470692672193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: 54a86593f7929fa48bef3447c6061b16
-  image: {fileID: 0}
-  topDamage: 0
-  rightDamage: 0
-  bottomDamage: 0
-  leftDamage: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c1fd91838ff0a49b3aa99814b21a90, type: 3}
   m_Name: Stones
   m_EditorClassIdentifier: 
---- !u!114 &3280558207194820965
+  stones:
+  - {fileID: 2479356536600768689}
+  - {fileID: 5748258003591082103}
+  - {fileID: 8051976128511850589}
+--- !u!114 &2479356536600768689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,13 +28,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 302e4651f3ce8434eb3ab5216016a7b2
+  name: 804ec41f2abcf3d48a9eb2067d54e903
   image: {fileID: 0}
   topDamage: 0
   rightDamage: 0
   bottomDamage: 0
   leftDamage: 0
---- !u!114 &7526572839605815397
+--- !u!114 &5748258003591082103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +46,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: SomeOtherStone
+  name: d0b786ff0d071e045bdc28563591fca2
+  image: {fileID: 0}
+  topDamage: 0
+  rightDamage: 0
+  bottomDamage: 0
+  leftDamage: 0
+--- !u!114 &8051976128511850589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: f0702b700383bad4ab4255174c2069dc
   image: {fileID: 0}
   topDamage: 0
   rightDamage: 0
