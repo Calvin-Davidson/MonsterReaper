@@ -5,7 +5,7 @@ namespace Grid
     public class Stone : MonoBehaviour
     {
         [SerializeField] private int teamSide;
-        [SerializeField] private TileScriptableObject stoneData;
+        [SerializeField] private StoneData stoneData;
 
         private Vector3 _imageOffset = new Vector3(0, 0.01f, 0);
         private int _gridIndex;
@@ -28,7 +28,7 @@ namespace Grid
             get => teamSide;
             set => teamSide = value;
         }
-        public TileScriptableObject StoneData
+        public StoneData StoneData
         {
             get => stoneData;
             set => stoneData = value;

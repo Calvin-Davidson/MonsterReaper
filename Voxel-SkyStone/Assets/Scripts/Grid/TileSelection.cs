@@ -6,7 +6,7 @@ public class TileSelection : MonoBehaviour
     private SkystoneGrid _skystoneGrid;
 
     [SerializeField] private int playerTeam;
-    [SerializeField] private TileScriptableObject selectedTile;
+    [SerializeField] private StoneData selectedTile;
 
     private void Awake()
     {
