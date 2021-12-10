@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -62,6 +63,7 @@ public class StonesContainerEditor : EditorWindow
     private void RenderStoneItem(ScrollView view, string stoneName)
     {
         var label = new Label(stoneName);
+        if (GetData().GetStoneNames().Count(s => s == stoneName) >= 2)  label.style.backgroundColor = Color.yellow;
         if (_selectedStoneName == stoneName) label.style.backgroundColor = Color.red;
 
         view.Add(label);
