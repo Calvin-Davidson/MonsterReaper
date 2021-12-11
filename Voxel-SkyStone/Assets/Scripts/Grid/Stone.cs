@@ -7,7 +7,7 @@ namespace Grid
     {
         [SerializeField] private int teamSide;
         [SerializeField] private StoneData stoneData;
-        [SerializeField] private GameObject imageContainer;
+        [SerializeField] private GameObject tileObjectContainer;
 
         public UnityEvent onStoneDataUpdate = new UnityEvent();
         
@@ -16,9 +16,11 @@ namespace Grid
 
         public void UpdateStoneData()
         {
-            // GameObject tileImage = Instantiate(stoneData.TileObject, transform.position + _imageOffset, Quaternion.identity);
-            // tileImage.transform.parent = imageContainer.transform;
-            // name = stoneData.name;
+            if (stoneData.TileObject != null)
+            {
+               GameObject tileImage = Instantiate(stoneData.TileObject, transform.position + _imageOffset, Quaternion.identity);
+               tileImage.transform.parent = tileObjectContainer.transform;
+            }
             onStoneDataUpdate?.Invoke();
         }
 

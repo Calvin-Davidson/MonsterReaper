@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamSide: 0
   stoneData: {fileID: 0}
-  imageContainer: {fileID: 0}
+  tileObjectContainer: {fileID: 4888268141960604214}
   onStoneDataUpdate:
     m_PersistentCalls:
       m_Calls:
