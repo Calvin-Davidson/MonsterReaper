@@ -13,5 +13,7 @@ namespace Networking
         TurnSwitch,
         PlaceStone,
         OpponentLeave,
+        Ready,
+        Unready
     }
 }

@@ -44,7 +44,11 @@ public class NetworkClient : MonoBehaviour
         Debug.Log("starting to connect");
         StartCoroutine(TryConnect());
     }
-
+    
+    public void Send(string json)
+    {
+        _client.Send(json);
+    }
 
     public NetworkEventContainer Events => _events;
 
@@ -105,6 +109,7 @@ public class NetworkClient : MonoBehaviour
     {
         _client?.Close();
     }
+    
 
     public static NetworkClient Instance => _instance;
 }

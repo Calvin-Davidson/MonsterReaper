@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d93b2f08a3f21e448b4550caa502d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Game
+  sceneName: KitSelectionMenu
 --- !u!4 &544064758
 Transform:
   m_ObjectHideFlags: 0
@@ -459,6 +459,7 @@ GameObject:
   - component: {fileID: 914609350}
   - component: {fileID: 914609349}
   - component: {fileID: 914609348}
+  - component: {fileID: 914609351}
   m_Layer: 0
   m_Name: Client
   m_TagString: Untagged
@@ -560,6 +561,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &914609351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914609347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89f7f0e9affd5044a0b0890c89fbc66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &936568242
 GameObject:
   m_ObjectHideFlags: 0
