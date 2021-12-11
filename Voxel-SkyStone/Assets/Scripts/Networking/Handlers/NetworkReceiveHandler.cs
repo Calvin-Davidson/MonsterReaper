@@ -21,6 +21,10 @@ public class NetworkReceiveHandler : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         _instance = this;
+        
+        NetworkClient.Instance.Events.onTurnSwitch.AddListener(OnTurnSwitch);
+        NetworkClient.Instance.Events.onConnected.AddListener(OnConnect);
+        NetworkClient.Instance.Events.onGameStart.AddListener(OnGameStart);
     }
 
     public void OnPacketReceive(MessageEventArgs args, NetworkData data)
@@ -37,5 +41,23 @@ public class NetworkReceiveHandler : MonoBehaviour
         if (actionName == NetworkAction.PlaceStone.ToString()) events.onStonePlace?.Invoke(jsonNode);
         if (actionName == NetworkAction.OpponentLeave.ToString()) events.onOpponentLeave?.Invoke(jsonNode);
         if (actionName == NetworkAction.GameFound.ToString()) events.onGameFound?.Invoke(jsonNode);
-    } 
+    }
+
+    private void OnTurnSwitch(JSONNode node)
+    {
+        Debug.Log(node);
+        NetworkClient.Instance.networkData.SetPlayerTurn(node["playerTurn"]);
+    }
+
+    private void OnConnect(JSONNode node)
+    {
+        NetworkClient.Instance.networkData.SetMyId(node["playerId"]);   
+    }
+
+    private void OnGameStart(JSONNode node)
+    {
+        Debug.Log(node);
+        Debug.Log("starting player id: " + node["StartingPlayerId"]);
+        NetworkClient.Instance.networkData.SetPlayerTurn(node["StartingPlayerId"]);
+    }
 }

@@ -25,12 +25,11 @@ public class TileSelection : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 hit.transform.gameObject.TryGetComponent<Stone>(out Stone clickedStone);
+                if (clickedStone.StoneData != null) return;
 
                 clickedStone.TeamSide = playerTeam;
                 clickedStone.StoneData = selectedTile;
                 FindObjectOfType<NetworkSendHandler>().PlaceStone(selectedTile.Name, _skyStoneGrid.Stones.IndexOf(clickedStone));
-                
-                clickedStone.UpdateStoneData();
             }
         }
     }

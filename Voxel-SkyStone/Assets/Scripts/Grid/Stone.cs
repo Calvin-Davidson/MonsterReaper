@@ -38,7 +38,11 @@ namespace Grid
         public StoneData StoneData
         {
             get => stoneData;
-            set => stoneData = value;
+            set
+            {
+                stoneData = value;
+                UpdateStoneData();
+            }
         }
     }
 }
