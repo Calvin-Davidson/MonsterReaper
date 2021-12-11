@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Toolbox.MethodExtensions;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class KitSelectionMenu : MonoBehaviour
@@ -10,12 +12,16 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private StonesContainer stonesContainer;
     [SerializeField] private GameObject content;
     [SerializeField] private RawImage[] selected;
+    [SerializeField] private bool locked;
     
+    public UnityEvent onKitValid = new UnityEvent();
+    public UnityEvent onKitInvalid = new UnityEvent();
 
     private int _selectedSlot = 0;
     private List<GameObject> _selectables = new List<GameObject>();
     private StoneData[] _selectedStones = new StoneData[5];
-
+    private bool _isValid = false;
+    
     private void Awake()
     {
         for (var i = 0; i < selected.Length; i++)
@@ -35,8 +41,10 @@ public class KitSelectionMenu : MonoBehaviour
             image.GetComponent<RawImage>().texture = stonesContainer.GetStoneByName(stoneName).Texture;
             image.GetComponent<UIRaycastEvents>().MouseClick.AddListener(() =>
             {
+                if (locked) return;
                 _selectedStones[_selectedSlot] = stonesContainer.GetStoneByName(stoneName);
                 Select(image.GetComponent<RawImage>().texture, _selectedSlot);
+                Validate();
             });
 
             image.transform.parent = content.transform;
@@ -65,5 +73,25 @@ public class KitSelectionMenu : MonoBehaviour
     private void Select(Texture texture, int slot)
     {
         selected[slot].texture = texture;
+    }
+
+    private void Validate()
+    {
+        if (_selectedStones.Count(data => data == null) > 0)
+        {
+            if (_isValid) onKitInvalid?.Invoke();
+            _isValid = false;
+        }
+        else
+        {
+            if (!_isValid) onKitValid?.Invoke();
+            _isValid = true;
+        }
+    }
+
+    public bool Locked
+    {
+        get => locked;
+        set => locked = value;
     }
 }

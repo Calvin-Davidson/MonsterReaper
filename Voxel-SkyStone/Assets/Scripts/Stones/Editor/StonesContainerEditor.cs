@@ -155,7 +155,7 @@ public class StonesContainerEditor : EditorWindow
         return data;
     }
 
-    public StoneData SelectedStone => GetData().GetStoneByName(_selectedStoneName);
+    private StoneData SelectedStone => GetData().GetStoneByName(_selectedStoneName);
 
     private void MakeFullWindow(VisualElement element)
     {
