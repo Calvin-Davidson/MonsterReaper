@@ -12,6 +12,7 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private RawImage[] selected;
 
     private int _selectedSlot = 0;
+    private List<GameObject> _selectables = new List<GameObject>();
 
     private void Awake()
     {
@@ -27,15 +28,18 @@ public class KitSelectionMenu : MonoBehaviour
         string[] stoneNames = stonesContainer.GetStoneNames();
         foreach (var stoneName in stoneNames)
         {
-            GameObject image = new GameObject(stoneName, typeof(CanvasRenderer), typeof(RawImage), typeof(UIRaycastEvents));
+            GameObject image = new GameObject(stoneName, typeof(CanvasRenderer), typeof(RawImage),
+                typeof(UIRaycastEvents));
             image.GetComponent<RawImage>().texture = stonesContainer.GetStoneByName(stoneName).Texture;
-            image.GetComponent<UIRaycastEvents>().MouseClick.AddListener(() => Select(image.GetComponent<RawImage>().texture, _selectedSlot));
-    
+            image.GetComponent<UIRaycastEvents>().MouseClick
+                .AddListener(() => Select(image.GetComponent<RawImage>().texture, _selectedSlot));
+
             image.transform.parent = content.transform;
+            _selectables.Add(image);
         }
     }
 
-    
+
     private void Select(Texture texture, int slot)
     {
         selected[slot].texture = texture;
