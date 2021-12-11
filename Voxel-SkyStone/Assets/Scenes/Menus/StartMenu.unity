@@ -367,6 +367,21 @@ MonoBehaviour:
         m_Calls: []
     onGameStart:
       m_PersistentCalls:
+        m_Calls: []
+    onGameEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    onTurnSwitch:
+      m_PersistentCalls:
+        m_Calls: []
+    onStonePlace:
+      m_PersistentCalls:
+        m_Calls: []
+    onOpponentLeave:
+      m_PersistentCalls:
+        m_Calls: []
+    onGameFound:
+      m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 544064757}
           m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
@@ -380,18 +395,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    onGameEnd:
-      m_PersistentCalls:
-        m_Calls: []
-    onTurnSwitch:
-      m_PersistentCalls:
-        m_Calls: []
-    onStonePlace:
-      m_PersistentCalls:
-        m_Calls: []
-    onOpponentLeave:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1 &824268387 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7661023117681171309, guid: fae630ba1c1ff4a4ba52ff460b7af6e3, type: 3}

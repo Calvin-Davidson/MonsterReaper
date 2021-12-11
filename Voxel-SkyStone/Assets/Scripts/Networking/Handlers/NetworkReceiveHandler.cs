@@ -36,5 +36,6 @@ public class NetworkReceiveHandler : MonoBehaviour
         if (actionName == NetworkAction.TurnSwitch.ToString()) events.onTurnSwitch?.Invoke(jsonNode);
         if (actionName == NetworkAction.PlaceStone.ToString()) events.onStonePlace?.Invoke(jsonNode);
         if (actionName == NetworkAction.OpponentLeave.ToString()) events.onOpponentLeave?.Invoke(jsonNode);
+        if (actionName == NetworkAction.GameFound.ToString()) events.onGameFound?.Invoke(jsonNode);
     } 
 }

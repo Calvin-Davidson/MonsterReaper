@@ -14,6 +14,7 @@ namespace Networking
         PlaceStone,
         OpponentLeave,
         Ready,
-        Unready
+        Unready,
+        GameFound
     }
 }
