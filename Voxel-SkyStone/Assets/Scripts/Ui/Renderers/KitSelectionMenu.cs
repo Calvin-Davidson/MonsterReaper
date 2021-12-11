@@ -78,10 +78,11 @@ public class KitSelectionMenu : MonoBehaviour
         for (var i = 0; i < 5; i++)
         {
             var random = Random.Range(0, _selectables.Count);
-            _selectedStones[_selectedSlot] = stonesContainer.GetStoneByName(stonesContainer.GetStoneNames()[random]);
+            Debug.Log(stonesContainer.GetStoneNames()[random]);
+            _selectedStones[i] = stonesContainer.GetStoneByName(stonesContainer.GetStoneNames()[random]);
             Select(_selectables[random].GetComponent<RawImage>().texture, i);
-            Validate();
         }
+        Validate();
     }
 
     private void Select(Texture texture, int slot)
