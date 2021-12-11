@@ -155,7 +155,7 @@ MonoBehaviour:
   gridSize: 3
   tileSize: 1
   tileGap: 0.05
-  tileGameObject: {fileID: 919132149155446097, guid: 1e36685aa018f494ca3fed21dbfcde8e, type: 3}
+  tileGameObject: {fileID: 1112547647828727312, guid: f8790c13d99e51a45ac1d0c443966ccc, type: 3}
   overlayGameObject: {fileID: 919132149155446097, guid: a7a68da0701087d4a856e2883961a868, type: 3}
   arrowObjects:
   - {fileID: 919132149155446097, guid: d270e3e9c16446e4fba9fd20700b068b, type: 3}
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTeam: 1
-  selectedTile: {fileID: 0}
+  selectedTile: {fileID: 5748258003591082103, guid: 1aeff39239494b041a1fb8015e57ceac, type: 2}
 --- !u!4 &642670555
 Transform:
   m_ObjectHideFlags: 0

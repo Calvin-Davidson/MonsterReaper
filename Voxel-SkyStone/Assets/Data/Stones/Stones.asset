@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Blue
   tileObject: {fileID: 0}
-  texture: {fileID: 2800000, guid: 18806109ccda65e499b422093ff06662, type: 3}
+  texture: {fileID: 0}
   topDamage: 0
   rightDamage: 0
   bottomDamage: 0

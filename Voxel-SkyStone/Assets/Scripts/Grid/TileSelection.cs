@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class TileSelection : MonoBehaviour
 {
-    private SkystoneGrid _skystoneGrid;
+    private SkystoneGrid _skyStoneGrid;
 
     [SerializeField] private int playerTeam;
     [SerializeField] private StoneData selectedTile;
 
     private void Awake()
     {
-        _skystoneGrid = FindObjectOfType<SkystoneGrid>();
+        _skyStoneGrid = FindObjectOfType<SkystoneGrid>();
     }
 
     private void Update()
     {
+        // if (NetworkClient.Instance == null) return; // temp
+        // if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
+        //
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -26,6 +29,7 @@ public class TileSelection : MonoBehaviour
 
                 clickedStone.TeamSide = playerTeam;
                 clickedStone.StoneData = selectedTile;
+        //        FindObjectOfType<NetworkSendHandler>().PlaceStone(selectedTile.Name, _skyStoneGrid.Stones.IndexOf(clickedStone));
                 
                 clickedStone.UpdateStoneData();
             }
