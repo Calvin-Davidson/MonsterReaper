@@ -6,6 +6,7 @@ using Toolbox.MethodExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class KitSelectionMenu : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private GameObject content;
     [SerializeField] private RawImage[] selected;
     [SerializeField] private bool locked;
-    
+
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
@@ -21,7 +22,7 @@ public class KitSelectionMenu : MonoBehaviour
     private List<GameObject> _selectables = new List<GameObject>();
     private StoneData[] _selectedStones = new StoneData[5];
     private bool _isValid = false;
-    
+
     private void Awake()
     {
         for (var i = 0; i < selected.Length; i++)
@@ -56,11 +57,11 @@ public class KitSelectionMenu : MonoBehaviour
     public void Ready()
     {
         NetworkSendHandler sendHandler = FindObjectOfType<NetworkSendHandler>();
-        string item1 = _selectedStones[0] == null || String.IsNullOrEmpty(_selectedStones[0].Name) ? "empty" : _selectedStones[0].Name;
-        string item2 = _selectedStones[1] == null || String.IsNullOrEmpty(_selectedStones[1].Name) ? "empty" : _selectedStones[1].Name;
-        string item3 = _selectedStones[2] == null || String.IsNullOrEmpty(_selectedStones[2].Name) ? "empty" : _selectedStones[2].Name;
-        string item4 = _selectedStones[3] == null || String.IsNullOrEmpty(_selectedStones[3].Name) ? "empty" : _selectedStones[3].Name;
-        string item5 = _selectedStones[4] == null || String.IsNullOrEmpty(_selectedStones[4].Name) ? "empty" : _selectedStones[4].Name;
+        string item1 = _selectedStones[0] == null ? "empty" : _selectedStones[0].Name;
+        string item2 = _selectedStones[1] == null ? "empty" : _selectedStones[1].Name;
+        string item3 = _selectedStones[2] == null ? "empty" : _selectedStones[2].Name;
+        string item4 = _selectedStones[3] == null ? "empty" : _selectedStones[3].Name;
+        string item5 = _selectedStones[4] == null ? "empty" : _selectedStones[4].Name;
         sendHandler.SendReady(item1, item2, item3, item4, item5);
     }
 
@@ -69,7 +70,20 @@ public class KitSelectionMenu : MonoBehaviour
         NetworkSendHandler sendHandler = FindObjectOfType<NetworkSendHandler>();
         sendHandler.SendUnready();
     }
-    
+
+    public void SelectRandomKit()
+    {
+        if (locked) return;
+
+        for (var i = 0; i < 5; i++)
+        {
+            var random = Random.Range(0, _selectables.Count);
+            _selectedStones[_selectedSlot] = stonesContainer.GetStoneByName(stonesContainer.GetStoneNames()[random]);
+            Select(_selectables[random].GetComponent<RawImage>().texture, i);
+            Validate();
+        }
+    }
+
     private void Select(Texture texture, int slot)
     {
         selected[slot].texture = texture;
