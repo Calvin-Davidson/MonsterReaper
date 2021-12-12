@@ -9,7 +9,8 @@ public class SelectableKitItem : MonoBehaviour
 {
     [SerializeField] private GameObject kitObject;
     [SerializeField] private GameObject selectedObject;
-
+    [SerializeField] private Text priceText;
+    
     private bool _isSelected = false;
 
     public void Select()
@@ -27,6 +28,7 @@ public class SelectableKitItem : MonoBehaviour
     public void Render(StoneData data)
     {
         kitObject.GetOrAddComponent<RawImage>().texture = data.Texture;
+        priceText.text = data.Price.ToString();
     }
 
     public bool IsSelected => _isSelected;

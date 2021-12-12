@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Toolbox.MethodExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class KitSelectionMenu : MonoBehaviour
 {
@@ -15,10 +17,10 @@ public class KitSelectionMenu : MonoBehaviour
 
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
-
+    
     private bool _locked;
     private bool _isValid = false;
-
+    private Dictionary<string, SelectableKitItem> _selectableKitItems = new Dictionary<string, SelectableKitItem>();
     private void Awake()
     {
         if (!selectablePrefab.HasComponent<SelectableKitItem>())
@@ -34,6 +36,7 @@ public class KitSelectionMenu : MonoBehaviour
         {
             GameObject image = Instantiate(selectablePrefab, content.transform, false);
             SelectableKitItem item = image.GetComponent<SelectableKitItem>();
+            _selectableKitItems.Add(stoneName, item);
             
             item.Render(stonesContainer.GetStoneByName(stoneName));
             if (kit.GetStones().Contains(stoneName)) item.Select();
@@ -76,7 +79,18 @@ public class KitSelectionMenu : MonoBehaviour
     {
         if (_locked) return;
         Validate();
-        throw new NotImplementedException();
+        kit.Clear();
+        List<string> stones = new List<string>(stonesContainer.GetStoneNames());
+        while (stones.Count > 0)
+        {
+            int randomIndex = Random.Range(0, stones.Count);
+            kit.AddStone(stones[randomIndex]);
+            _selectableKitItems[stones[randomIndex]].Select();
+            stones.RemoveAt(randomIndex);
+            stones.RemoveAll(stone => !CanSelect(stonesContainer.GetStoneByName(stone)));
+        }
+        RenderPoints();
+        Validate();
     }
 
     private void RenderPoints()

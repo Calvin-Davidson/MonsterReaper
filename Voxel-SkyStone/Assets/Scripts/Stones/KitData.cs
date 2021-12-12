@@ -21,6 +21,11 @@ public class KitData : ScriptableObject
         return true;
     }
 
+    public void Clear()
+    {
+        stones.Clear();
+    }
+
     public string[] GetStones()
     {
         return stones.ToArray();
