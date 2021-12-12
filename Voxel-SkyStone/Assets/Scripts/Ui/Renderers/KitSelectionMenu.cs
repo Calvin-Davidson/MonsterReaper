@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Toolbox.MethodExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class KitSelectionMenu : MonoBehaviour
 {
@@ -14,12 +11,12 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private KitData kit;
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject selectablePrefab;
+    [SerializeField] private Text priceText;
 
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
     private bool _locked;
-    private readonly List<StoneData> _selectedStones = new List<StoneData>();
     private bool _isValid = false;
 
     private void Awake()
@@ -51,19 +48,22 @@ public class KitSelectionMenu : MonoBehaviour
                 }
                 else
                 {
+                    if (!CanSelect(stonesContainer.GetStoneByName(stoneName))) return;
                     item.Select();
                     kit.AddStone(stoneName);
                 }
                 Validate();
+                RenderPoints();
             });
         }
         Validate();
+        RenderPoints();
     }
 
     public void Ready()
     {
         NetworkSendHandler sendHandler = FindObjectOfType<NetworkSendHandler>();
-        sendHandler.SendReady(_selectedStones.Select(data => data.Name).ToArray());
+        sendHandler.SendReady(kit.GetStones());
     }
 
     public void Unready()
@@ -77,6 +77,22 @@ public class KitSelectionMenu : MonoBehaviour
         if (_locked) return;
         Validate();
         throw new NotImplementedException();
+    }
+
+    private void RenderPoints()
+    {
+        int price = 0;
+        foreach (var stone in kit.GetStones()) price += stonesContainer.GetStoneByName(stone).Price;
+        priceText.text = (20 - price).ToString() + "/20";
+    }
+
+    private bool CanSelect(StoneData stoneData)
+    {
+        int pointsLeft = 20;
+        foreach (var stone in kit.GetStones()) pointsLeft -= stonesContainer.GetStoneByName(stone).Price;
+        Debug.Log(pointsLeft);
+        Debug.Log(stoneData.Price);
+        return ((pointsLeft) >= stoneData.Price);
     }
     
     private void Validate()

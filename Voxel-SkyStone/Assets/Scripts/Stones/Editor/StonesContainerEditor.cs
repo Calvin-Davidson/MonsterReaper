@@ -101,6 +101,7 @@ public class StonesContainerEditor : EditorWindow
             return;
         }
 
+        rootVisualElement.Q<IntegerField>("StonePrice").value = SelectedStone.Price;
         RenderDamageField(rootVisualElement.Q<IntegerField>("StoneTopDamage"), SelectedStone.TopDamage);
         RenderDamageField(rootVisualElement.Q<IntegerField>("StoneRightDamage"), SelectedStone.RightDamage);
         RenderDamageField(rootVisualElement.Q<IntegerField>("StoneBottomDamage"), SelectedStone.BottomDamage);
@@ -134,6 +135,7 @@ public class StonesContainerEditor : EditorWindow
         textureField.objectType = typeof(Texture);
         textureField.RegisterValueChangedCallback(evt =>  SelectedStone.SetTexture(evt.newValue as Texture));
         
+        rootVisualElement.Q<IntegerField>("StonePrice").RegisterValueChangedCallback(evt => SelectedStone.SetPrice(evt.newValue));
         rootVisualElement.Q<IntegerField>("StoneTopDamage").RegisterValueChangedCallback(evt => SelectedStone.SetTopDamage(evt.newValue));
         rootVisualElement.Q<IntegerField>("StoneRightDamage").RegisterValueChangedCallback(evt => SelectedStone.SetRightDamage(evt.newValue));
         rootVisualElement.Q<IntegerField>("StoneBottomDamage").RegisterValueChangedCallback(evt => SelectedStone.SetBottomDamage(evt.newValue));

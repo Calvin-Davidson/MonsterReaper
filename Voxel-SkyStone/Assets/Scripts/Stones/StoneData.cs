@@ -9,6 +9,7 @@ public class StoneData : ScriptableObject
     [SerializeReference] private new string name;
     [SerializeReference] private GameObject tileObject;
     [SerializeReference] private Texture texture;
+    [SerializeReference] private int price;
     [SerializeReference] private int topDamage;
     [SerializeReference] private int rightDamage;
     [SerializeReference] private int bottomDamage;
@@ -28,6 +29,7 @@ public class StoneData : ScriptableObject
 
     public Texture Texture => texture;
 
+    public int Price => price;
 #if UNITY_EDITOR
     public void SetName(string newName)
     {
@@ -70,5 +72,11 @@ public class StoneData : ScriptableObject
         this.texture = newTexture;
         EditorUtility.SetDirty(this);
     }
+    public void SetPrice(int newPrice)
+    {
+        this.price = newPrice;
+        EditorUtility.SetDirty(this);
+    }
+    
 #endif
 }

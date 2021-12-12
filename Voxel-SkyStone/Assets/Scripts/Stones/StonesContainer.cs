@@ -26,6 +26,7 @@ public class StonesContainer : ScriptableObject
   public void CreateStone()
   {
     StoneData instance = ScriptableObject.CreateInstance<StoneData>();
+    instance.SetPrice(1);
 
     instance.SetName(GUID.Generate().ToString());
 

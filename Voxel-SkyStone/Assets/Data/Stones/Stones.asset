@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Yellow
   tileObject: {fileID: 0}
   texture: {fileID: 2800000, guid: 61b4160be5a8d8c4f94a248322d8ccdf, type: 3}
+  price: 1
   topDamage: 4
   rightDamage: 4
   bottomDamage: 4
@@ -52,6 +53,7 @@ MonoBehaviour:
   name: Pink
   tileObject: {fileID: 0}
   texture: {fileID: 2800000, guid: 8645c45ded0af914cb77f7ca3b2e117e, type: 3}
+  price: 1
   topDamage: 2
   rightDamage: 2
   bottomDamage: 2
@@ -71,6 +73,7 @@ MonoBehaviour:
   name: Red
   tileObject: {fileID: 0}
   texture: {fileID: 2800000, guid: aa333374ce22b2b4bb91397c358c79c3, type: 3}
+  price: 1
   topDamage: 2
   rightDamage: 0
   bottomDamage: 2
@@ -90,6 +93,7 @@ MonoBehaviour:
   name: Green
   tileObject: {fileID: 0}
   texture: {fileID: 2800000, guid: be3020621972bf441a3edca037669b00, type: 3}
+  price: 1
   topDamage: 0
   rightDamage: 4
   bottomDamage: 0
@@ -109,6 +113,7 @@ MonoBehaviour:
   name: Blue
   tileObject: {fileID: 0}
   texture: {fileID: 2800000, guid: 18806109ccda65e499b422093ff06662, type: 3}
+  price: 1
   topDamage: 1
   rightDamage: 1
   bottomDamage: 1
