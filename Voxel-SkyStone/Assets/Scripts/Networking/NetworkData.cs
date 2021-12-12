@@ -17,6 +17,8 @@ namespace Networking
 
         public bool Localhost => localhost;
 
+        public int MyId => _myId;
+
         public void SetPlayerTurn(int playerId)
         {
             _playerTurnId = playerId;

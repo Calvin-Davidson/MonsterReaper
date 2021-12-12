@@ -9,15 +9,39 @@ namespace Grid
         [SerializeField] private StoneData stoneData;
         [SerializeField] private GameObject tileObjectContainer;
 
-        public UnityEvent onStoneDataUpdate = new UnityEvent();
+        [SerializeField] private GameObject topArrowContainer;
+        [SerializeField] private GameObject rightArrowContainer;
+        [SerializeField] private GameObject bottomArrowContainer;
+        [SerializeField] private GameObject leftArrowContainer;
 
-        private Vector3 _imageOffset = new Vector3(0, 0.01f, 0);
+        [SerializeField] private GameObject[] arrows;
+
+        public UnityEvent onStoneDataUpdate = new UnityEvent();
+        public UnityEvent onStonePlace = new UnityEvent();
+        public UnityEvent onStonePlaced = new UnityEvent();
+        public UnityEvent onTeamChange = new UnityEvent();
+
         private int _gridIndex;
 
-        public void UpdateStoneData()
+        private void UpdateStoneData()
         {
             tileObjectContainer.GetComponent<MeshRenderer>().material.mainTexture = stoneData.Texture;
             onStoneDataUpdate?.Invoke();
+            
+            SpawnArrows();
+        }
+
+        private void SpawnArrows()
+        {
+            if (stoneData.TopDamage > 0) SpawnArrow(topArrowContainer, arrows[stoneData.TopDamage-1]);
+            if (stoneData.RightDamage > 0) SpawnArrow(rightArrowContainer, arrows[stoneData.RightDamage-1]);
+            if (stoneData.BottomDamage > 0) SpawnArrow(bottomArrowContainer, arrows[stoneData.BottomDamage-1]);
+            if (stoneData.LeftDamage > 0) SpawnArrow(leftArrowContainer, arrows[stoneData.LeftDamage-1]);
+        }
+
+        private void SpawnArrow(GameObject container, GameObject arrow)
+        {
+            Instantiate(arrow, container.transform, false);
         }
 
         public int GridIndex
@@ -29,7 +53,11 @@ namespace Grid
         public int TeamSide
         {
             get => teamSide;
-            set => teamSide = value;
+            set
+            {
+                teamSide = value;
+                onTeamChange?.Invoke();
+            }
         }
 
         public StoneData StoneData
@@ -38,7 +66,10 @@ namespace Grid
             set
             {
                 stoneData = value;
+                if (value != null) onStonePlace?.Invoke();
                 UpdateStoneData();
+                
+                onStonePlaced?.Invoke();
             }
         }
     }

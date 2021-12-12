@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Grid;
 using Toolbox.MethodExtensions;
 using UnityEngine;
@@ -30,7 +31,6 @@ public class SkystoneGrid : MonoBehaviour
         InstantiateTiles();
         InstantiateOverlay();
     }
-
     private void InstantiateTiles()
     {
         for (int y = 0; y < gridSize; y++)
@@ -48,7 +48,6 @@ public class SkystoneGrid : MonoBehaviour
             }
         } 
     }
-
     private void InstantiateOverlay()
     {
         for (int y = 0; y < gridSize + 1; y++)
@@ -59,5 +58,42 @@ public class SkystoneGrid : MonoBehaviour
                 betweenTile.transform.parent = gameObject.transform;
             }
         }
+    }
+
+    public bool CheckGameEnd()
+    {
+        if (_stones.Exists(stone => stone.StoneData == null)) return false;
+        Debug.Log("the game is done");
+        return true;
+    }
+
+    public int GetWinner()
+    {
+        Debug.Log("winner: " + (_stones.Count(stone => stone.TeamSide == 1) > _stones.Count(stone => stone.TeamSide == 2) ? 1 : 2));
+        return (_stones.Count(stone => stone.TeamSide == 1) > _stones.Count(stone => stone.TeamSide == 2) ? 1 : 2);
+    }
+
+    public Stone GetStoneAbove(Stone stone)
+    {
+        int index = _stones.IndexOf(stone) - gridSize;
+        return index < 0 || index >= _stones.Count ? null : _stones[index];
+    }
+
+    public Stone GetStoneUnder(Stone stone)
+    {
+        int index = _stones.IndexOf(stone) + gridSize;
+        return index < 0 || index >= _stones.Count ? null : _stones[index];
+    }
+
+    public Stone GetStoneRight(Stone stone)
+    {
+        int index = _stones.IndexOf(stone) + 1;
+        return index < 0 || index >= _stones.Count ? null : _stones[index];
+    }
+
+    public Stone GetStoneLeft(Stone stone)
+    {
+        int index = _stones.IndexOf(stone) - 1;
+        return index < 0 || index >= _stones.Count ? null : _stones[index];
     }
 }

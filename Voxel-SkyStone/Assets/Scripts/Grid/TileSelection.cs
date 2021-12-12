@@ -4,8 +4,7 @@ using UnityEngine;
 public class TileSelection : MonoBehaviour
 {
     private SkystoneGrid _skyStoneGrid;
-
-    [SerializeField] private int playerTeam;
+    
     [SerializeField] private StoneData selectedTile;
 
     private void Awake()
@@ -27,7 +26,7 @@ public class TileSelection : MonoBehaviour
                 hit.transform.gameObject.TryGetComponent<Stone>(out Stone clickedStone);
                 if (clickedStone.StoneData != null) return;
 
-                clickedStone.TeamSide = playerTeam;
+                clickedStone.TeamSide = NetworkClient.Instance.networkData.MyId;
                 clickedStone.StoneData = selectedTile;
                 FindObjectOfType<NetworkSendHandler>().PlaceStone(selectedTile.Name, _skyStoneGrid.Stones.IndexOf(clickedStone));
             }

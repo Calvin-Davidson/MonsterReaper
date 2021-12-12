@@ -114,7 +114,6 @@ public class StonesContainerEditor : EditorWindow
         
         var textureField = rootVisualElement.Q<ObjectField>("StoneTexture");
         textureField.value = SelectedStone.TileObject;
-
     }
 
     private void SetupStoneSettings()
