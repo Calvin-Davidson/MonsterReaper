@@ -113,7 +113,7 @@ public class StonesContainerEditor : EditorWindow
         gameObjectField.value = SelectedStone.TileObject;
         
         var textureField = rootVisualElement.Q<ObjectField>("StoneTexture");
-        textureField.value = SelectedStone.TileObject;
+        textureField.value = SelectedStone.Texture;
     }
 
     private void SetupStoneSettings()
