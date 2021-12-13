@@ -46,4 +46,13 @@ public class NetworkSendHandler : MonoBehaviour
         };
         NetworkClient.Instance.Send(Newtonsoft.Json.JsonConvert.SerializeObject(json));
     }
+
+    public void SendJoinLobby()
+    {
+        var json = new
+        {
+            action = NetworkAction.JoinLobby.ToString()
+        };
+        NetworkClient.Instance.Send(Newtonsoft.Json.JsonConvert.SerializeObject(json));
+    }
 }

@@ -10,21 +10,21 @@ public class NetworkEventHandler : MonoBehaviour
 
     private void Start()
     {
-        NetworkClient.Instance.Events.onConnected.AddListener(container.onConnected.Invoke);
         NetworkClient.Instance.Events.onGameStart.AddListener(container.onGameStart.Invoke);
         NetworkClient.Instance.Events.onGameEnd.AddListener(container.onGameEnd.Invoke);
         NetworkClient.Instance.Events.onStonePlace.AddListener(container.onStonePlace.Invoke);
         NetworkClient.Instance.Events.onTurnSwitch.AddListener(container.onTurnSwitch.Invoke);
         NetworkClient.Instance.Events.onGameFound.AddListener(container.onGameFound.Invoke);
+        NetworkClient.Instance.Events.onJoinLobby.AddListener(container.onJoinLobby.Invoke);
     }
 
     private void OnDisable()
     {
-        NetworkClient.Instance.Events.onConnected.RemoveListener(container.onConnected.Invoke);
         NetworkClient.Instance.Events.onGameStart.RemoveListener(container.onGameStart.Invoke);
         NetworkClient.Instance.Events.onGameEnd.RemoveListener(container.onGameEnd.Invoke);
         NetworkClient.Instance.Events.onStonePlace.RemoveListener(container.onStonePlace.Invoke);
         NetworkClient.Instance.Events.onTurnSwitch.RemoveListener(container.onTurnSwitch.Invoke);
         NetworkClient.Instance.Events.onGameFound.RemoveListener(container.onGameFound.Invoke);
+        NetworkClient.Instance.Events.onJoinLobby.RemoveListener(container.onJoinLobby.Invoke);
     }
 }

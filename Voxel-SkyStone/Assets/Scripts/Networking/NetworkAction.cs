@@ -7,7 +7,6 @@ namespace Networking
 {
     public enum NetworkAction
     {
-        Connected,
         StartGame,
         EndGame,
         TurnSwitch,
@@ -15,6 +14,7 @@ namespace Networking
         OpponentLeave,
         Ready,
         Unready,
-        GameFound
+        GameFound,
+        JoinLobby,
     }
 }

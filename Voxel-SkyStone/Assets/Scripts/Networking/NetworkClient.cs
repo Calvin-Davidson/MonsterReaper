@@ -25,9 +25,6 @@ public class NetworkClient : MonoBehaviour
 
     private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
 
-    [DllImport("__Internal")]
-    private static extern WebSocket Connect_JS();
-
     private void Awake()
     {
         if (_instance != null)
