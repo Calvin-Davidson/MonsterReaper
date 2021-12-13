@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using SimpleJSON;
 using UnityEngine;
-using WebSocketSharp;
 
 //[CreateAssetMenu(fileName = "NetworkData", menuName = "ScriptableObjects/NetworkData")]
 namespace Networking

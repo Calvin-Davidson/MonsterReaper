@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Networking;
 using SimpleJSON;
 using UnityEngine;
-using WebSocketSharp;
 
 public class NetworkReceiveHandler : MonoBehaviour
 {
@@ -27,10 +26,10 @@ public class NetworkReceiveHandler : MonoBehaviour
         NetworkClient.Instance.Events.onGameStart.AddListener(OnGameStart);
     }
 
-    public void OnPacketReceive(MessageEventArgs args, NetworkData data)
+    public void OnPacketReceive(String message, NetworkData data)
     {
-        Debug.Log(args.Data);
-        JSONNode jsonNode = JSONNode.Parse(args.Data);
+        Debug.Log(message);
+        JSONNode jsonNode = JSONNode.Parse(message);
         string actionName = jsonNode["action"];
 
         NetworkEventContainer events = NetworkClient.Instance.Events;

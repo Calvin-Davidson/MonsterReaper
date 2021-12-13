@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Networking;
 using UnityEngine;
 using UnityEngine.Events;
-using WebSocketSharp;
+using NativeWebSocket;
+
 
 [RequireComponent(typeof(NetworkReceiveHandler))]
 public class NetworkClient : MonoBehaviour
@@ -20,9 +22,11 @@ public class NetworkClient : MonoBehaviour
     private NetworkReceiveHandler _receiveHandler;
     private NetworkEventContainer _events;
     private static NetworkClient _instance;
-    
+
     private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
 
+    [DllImport("__Internal")]
+    private static extern WebSocket Connect_JS();
 
     private void Awake()
     {
@@ -38,40 +42,31 @@ public class NetworkClient : MonoBehaviour
 
         _receiveHandler = GetComponent<NetworkReceiveHandler>();
     }
-
+    
     public void Connect()
     {
         Debug.Log("starting to connect");
-        StartCoroutine(TryConnect());
+        TryConnect();
+        
     }
-    
+
     public void Send(string json)
     {
-        _client.Send(json);
+        _client.SendText(json);
     }
 
     public NetworkEventContainer Events => _events;
 
-    private IEnumerator TryConnect()
+    private async void TryConnect()
     {
         Debug.Log("trying to connect");
-        _client = networkData.Localhost
-            ? new WebSocket("ws://localhost:80")
-            : new WebSocket("ws://voxel-relay.herokuapp.com/");
+        _client = networkData.Localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
 
         InitEvents();
+        
+        await _client.Connect();
 
-        _client.ConnectAsync();
-
-        float waitedTime = 0;
-        while (waitedTime < 10)
-        {
-            waitedTime += Time.deltaTime;
-            if (_client.IsAlive) break;
-            yield return null;
-        }
-
-        if (_client.IsAlive)
+        if (_client.State == WebSocketState.Open)
             onConnectionSuccessful?.Invoke();
         else
             onConnectionFail?.Invoke();
@@ -79,37 +74,37 @@ public class NetworkClient : MonoBehaviour
 
     private void InitEvents()
     {
-        _client.OnOpen += (sender, args) =>
+        _client.OnOpen += () =>
         {
             onConnectionSuccessful?.Invoke();
             Debug.Log("connection opened");
         };
 
-        _client.OnClose += (sender, args) =>
+        _client.OnClose += code =>
         {
             onConnectionFail?.Invoke();
             Debug.Log("connection closed");
         };
 
-        _client.OnMessage += (sender, args) =>
-        { 
-            _actions.Enqueue(() => _receiveHandler.OnPacketReceive(args, networkData));
+        _client.OnMessage += data =>
+        {
+            string message = System.Text.Encoding.UTF8.GetString(data);
+            _actions.Enqueue(() => _receiveHandler.OnPacketReceive(message, networkData));
         };
     }
 
     private void Update()
     {
-        while(_actions.TryDequeue(out var action))
+        while (_actions.TryDequeue(out var action))
         {
             action?.Invoke();
         }
     }
 
-    private void OnApplicationQuit()
+    private async void OnApplicationQuit()
     {
-        _client?.Close();
+        await _client.Close();
     }
-    
 
     public static NetworkClient Instance => _instance;
 }
