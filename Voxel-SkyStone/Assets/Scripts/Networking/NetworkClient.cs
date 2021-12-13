@@ -8,6 +8,7 @@ using Networking;
 using UnityEngine;
 using UnityEngine.Events;
 using NativeWebSocket;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(NetworkReceiveHandler))]
@@ -87,6 +88,7 @@ public class NetworkClient : MonoBehaviour
         {
             onConnectionFail?.Invoke();
             Debug.Log("connection closed");
+            SceneManager.LoadScene("ConnectionLost");
         };
 
         _client.OnMessage += data =>
