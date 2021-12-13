@@ -42,12 +42,11 @@ public class NetworkClient : MonoBehaviour
 
         _receiveHandler = GetComponent<NetworkReceiveHandler>();
     }
-    
+
     public void Connect()
     {
         Debug.Log("starting to connect");
         TryConnect();
-        
     }
 
     public void Send(string json)
@@ -61,19 +60,22 @@ public class NetworkClient : MonoBehaviour
     {
         Debug.Log("trying to connect");
         if (networkData.Wss)
-            _client = networkData.Localhost ? new WebSocket("wsw://localhost:80") : new WebSocket("wss://voxel-relay.herokuapp.com/");
+            _client = networkData.Localhost
+                ? new WebSocket("wsw://localhost:80")
+                : new WebSocket("wss://voxel-relay.herokuapp.com/");
         else
-            _client = networkData.Localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
+            _client = networkData.Localhost
+                ? new WebSocket("ws://localhost:80")
+                : new WebSocket("ws://voxel-relay.herokuapp.com/");
 
         InitEvents();
-        
+
         await _client.Connect();
 
         if (_client.State == WebSocketState.Open || _client.State == WebSocketState.Connecting)
             onConnectionSuccessful?.Invoke();
         else
             onConnectionFail?.Invoke();
-        
     }
 
     private void InitEvents()
@@ -93,12 +95,17 @@ public class NetworkClient : MonoBehaviour
         _client.OnMessage += data =>
         {
             string message = System.Text.Encoding.UTF8.GetString(data);
+            Debug.Log(message);
             _actions.Enqueue(() => _receiveHandler.OnPacketReceive(message, networkData));
         };
     }
 
     private void Update()
     {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        _client?.DispatchMessageQueue();
+#endif
+
         while (_actions.TryDequeue(out var action))
         {
             action?.Invoke();

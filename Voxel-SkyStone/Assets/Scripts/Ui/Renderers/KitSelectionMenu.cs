@@ -17,10 +17,11 @@ public class KitSelectionMenu : MonoBehaviour
 
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
-    
+
     private bool _locked;
     private bool _isValid = false;
     private Dictionary<string, SelectableKitItem> _selectableKitItems = new Dictionary<string, SelectableKitItem>();
+
     private void Awake()
     {
         if (!selectablePrefab.HasComponent<SelectableKitItem>())
@@ -37,7 +38,7 @@ public class KitSelectionMenu : MonoBehaviour
             GameObject image = Instantiate(selectablePrefab, content.transform, false);
             SelectableKitItem item = image.GetComponent<SelectableKitItem>();
             _selectableKitItems.Add(stoneName, item);
-            
+
             item.Render(stonesContainer.GetStoneByName(stoneName));
             if (kit.GetStones().Contains(stoneName)) item.Select();
 
@@ -55,10 +56,12 @@ public class KitSelectionMenu : MonoBehaviour
                     item.Select();
                     kit.AddStone(stoneName);
                 }
+
                 Validate();
                 RenderPoints();
             });
         }
+
         Validate();
         RenderPoints();
     }
@@ -89,6 +92,7 @@ public class KitSelectionMenu : MonoBehaviour
             stones.RemoveAt(randomIndex);
             stones.RemoveAll(stone => !CanSelect(stonesContainer.GetStoneByName(stone)));
         }
+
         RenderPoints();
         Validate();
     }
@@ -108,7 +112,7 @@ public class KitSelectionMenu : MonoBehaviour
         Debug.Log(stoneData.Price);
         return ((pointsLeft) >= stoneData.Price);
     }
-    
+
     private void Validate()
     {
         if (kit.GetStones().Length < 5)

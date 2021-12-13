@@ -1,11 +1,15 @@
+using System;
 using Grid;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TileSelection : MonoBehaviour
 {
-    private SkystoneGrid _skyStoneGrid;
+    [SerializeField] private StoneData selectedStone;
+
+    public UnityEvent<String> onStonePlace = new UnityEvent<String>();
     
-    [SerializeField] private StoneData selectedTile;
+    private SkystoneGrid _skyStoneGrid;
 
     private void Awake()
     {
@@ -27,9 +31,17 @@ public class TileSelection : MonoBehaviour
                 if (clickedStone.StoneData != null) return;
 
                 clickedStone.TeamSide = NetworkClient.Instance.networkData.MyId;
-                clickedStone.StoneData = selectedTile;
-                FindObjectOfType<NetworkSendHandler>().PlaceStone(selectedTile.Name, _skyStoneGrid.Stones.IndexOf(clickedStone));
+                clickedStone.StoneData = selectedStone;
+                onStonePlace?.Invoke(selectedStone.Name);
+                FindObjectOfType<NetworkSendHandler>().PlaceStone(selectedStone.Name, _skyStoneGrid.Stones.IndexOf(clickedStone));
+                selectedStone = null;
             }
         }
+    }
+
+    public StoneData SelectedStone
+    {
+        get => selectedStone;
+        set => selectedStone = value;
     }
 }
