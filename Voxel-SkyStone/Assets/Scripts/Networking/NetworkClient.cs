@@ -111,6 +111,7 @@ public class NetworkClient : MonoBehaviour
 
     private async void OnApplicationQuit()
     {
+        if (_client == null) return;
         await _client.Close();
     }
 
