@@ -61,13 +61,9 @@ public class NetworkClient : MonoBehaviour
     {
         Debug.Log("trying to connect");
         if (networkData.Wss)
-        {
             _client = networkData.Localhost ? new WebSocket("wsw://localhost:80") : new WebSocket("wss://voxel-relay.herokuapp.com/");
-        }
         else
-        {
             _client = networkData.Localhost ? new WebSocket("ws://localhost:80") : new WebSocket("ws://voxel-relay.herokuapp.com/");
-        }
 
         InitEvents();
         
