@@ -9,12 +9,15 @@ namespace Networking
     public class NetworkData : ScriptableObject
     {
         [SerializeField] private bool localhost;
+        [SerializeField] private bool wss;
 
         private int _myId = 0;
         private int _playerTurnId = 0;
 
 
         public bool Localhost => localhost;
+
+        public bool Wss => wss;
 
         public int MyId => _myId;
 
