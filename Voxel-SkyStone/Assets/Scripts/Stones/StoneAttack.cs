@@ -23,9 +23,9 @@ public class StoneAttack : MonoBehaviour
         Stone bottom = skystoneGrid.GetStoneUnder(stone);
         Stone left = skystoneGrid.GetStoneLeft(stone);
         if (above != null && IsStronger(stone, above, Side.Top)) above.TeamSide = stone.TeamSide;
-        if (right != null && IsStronger(stone, right, Side.Top)) right.TeamSide = stone.TeamSide;
-        if (bottom != null && IsStronger(stone, bottom, Side.Top)) bottom.TeamSide = stone.TeamSide;
-        if (left != null && IsStronger(stone, left, Side.Top)) left.TeamSide = stone.TeamSide;
+        if (right != null && IsStronger(stone, right, Side.Right)) right.TeamSide = stone.TeamSide;
+        if (bottom != null && IsStronger(stone, bottom, Side.Bottom)) bottom.TeamSide = stone.TeamSide;
+        if (left != null && IsStronger(stone, left, Side.Left)) left.TeamSide = stone.TeamSide;
     }
 
     private bool IsStronger(Stone attacker, Stone defender, Side side)
