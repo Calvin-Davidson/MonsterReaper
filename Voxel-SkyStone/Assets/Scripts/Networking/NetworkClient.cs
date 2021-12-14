@@ -17,6 +17,7 @@ public class NetworkClient : MonoBehaviour
     public NetworkData networkData;
 
     public UnityEvent onConnectionFail = new UnityEvent();
+    public UnityEvent onConnectionClose = new UnityEvent();
     public UnityEvent onConnectionSuccessful = new UnityEvent();
 
     private WebSocket _client;
@@ -86,9 +87,8 @@ public class NetworkClient : MonoBehaviour
 
         _client.OnClose += code =>
         {
-            onConnectionFail?.Invoke();
-            Debug.Log("connection closed");
-            SceneManager.LoadScene("ConnectionLost");
+            onConnectionClose?.Invoke();
+            if (Application.isPlaying) SceneManager.LoadScene("ConnectionLost");
         };
 
         _client.OnMessage += data =>
