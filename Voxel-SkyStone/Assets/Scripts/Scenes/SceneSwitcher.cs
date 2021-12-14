@@ -16,7 +16,7 @@ public class SceneSwitcher : MonoBehaviour
    
    public void LoadSceneAsync()
    {
-      
+      StartCoroutine(LoadAsync());
    }
 
    private IEnumerator LoadAsync()
@@ -24,7 +24,7 @@ public class SceneSwitcher : MonoBehaviour
       var loader = SceneManager.LoadSceneAsync(sceneName);
       loader.allowSceneActivation = false;
       
-      while (!loader.isDone)
+      while (loader.progress < 0.9f)
       {
          yield return null;
       }
