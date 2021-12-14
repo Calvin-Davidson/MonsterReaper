@@ -14,9 +14,21 @@ public class SceneSwitcher : MonoBehaviour
       SceneManager.LoadScene(sceneName);
    }
    
-   public void LoadScene(JSONNode node)
+   public void LoadSceneAsync()
    {
-      Debug.Log("switching scene");
-      SceneManager.LoadScene(sceneName);
+      
+   }
+
+   private IEnumerator LoadAsync()
+   {
+      var loader = SceneManager.LoadSceneAsync(sceneName);
+      loader.allowSceneActivation = false;
+      
+      while (!loader.isDone)
+      {
+         yield return null;
+      }
+
+      loader.allowSceneActivation = true;
    }
 }
