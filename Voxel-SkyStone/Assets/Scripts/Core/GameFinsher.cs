@@ -11,6 +11,7 @@ public class GameFinsher : MonoBehaviour
     public UnityEvent onGameEnd = new UnityEvent();
     public UnityEvent onGameWin = new UnityEvent();
     public UnityEvent onGameLose = new UnityEvent();
+    public UnityEvent onGameDraw = new UnityEvent();
     private void Start()
     {
         skystoneGrid.Stones.ForEach(stone =>
@@ -22,9 +23,11 @@ public class GameFinsher : MonoBehaviour
     private void CheckGameEnd()
     {
         if (!skystoneGrid.CheckGameEnd()) return;
-        
-        if (skystoneGrid.GetWinner() == NetworkClient.Instance.networkData.MyId) onGameWin?.Invoke();
-        else onGameLose?.Invoke();
+
+        VictoryState victoryState = skystoneGrid.GetWinner();
+        if (victoryState == VictoryState.Loser) onGameLose?.Invoke();
+        else if (victoryState == VictoryState.Winner) onGameWin?.Invoke();
+        else onGameDraw?.Invoke();
         
         onGameEnd?.Invoke();
         

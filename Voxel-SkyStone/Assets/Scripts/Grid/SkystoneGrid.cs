@@ -63,14 +63,16 @@ public class SkystoneGrid : MonoBehaviour
     public bool CheckGameEnd()
     {
         if (_stones.Exists(stone => stone.StoneData == null)) return false;
-        Debug.Log("the game is done");
         return true;
     }
 
-    public int GetWinner()
+    public VictoryState GetWinner()
     {
-        Debug.Log("winner: " + (_stones.Count(stone => stone.TeamSide == 1) > _stones.Count(stone => stone.TeamSide == 2) ? 1 : 2));
-        return (_stones.Count(stone => stone.TeamSide == 1) > _stones.Count(stone => stone.TeamSide == 2) ? 1 : 2);
+        int opponentStonesCount = (_stones.Count(stone => stone.TeamSide != NetworkClient.Instance.networkData.MyId));
+        int myStonesCount = (_stones.Count(stone => stone.TeamSide == NetworkClient.Instance.networkData.MyId));
+        if (myStonesCount > opponentStonesCount) return VictoryState.Winner;
+        if (myStonesCount < opponentStonesCount) return VictoryState.Loser;
+        return VictoryState.Draw;
     }
 
     public Stone GetStoneAbove(Stone stone)
