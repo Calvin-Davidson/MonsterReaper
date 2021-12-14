@@ -34,7 +34,7 @@ namespace Grid
 
         private void RenderTileOutlineColor()
         {
-            tileOutline.material.color = teamSide == NetworkClient.Instance.networkData.MyId ? Color.blue : Color.red;
+            tileOutline.material.color = teamSide == NetworkClient.Instance.networkData.MyId ? Color.green : Color.red;
         }
         
         private void SpawnArrows()
