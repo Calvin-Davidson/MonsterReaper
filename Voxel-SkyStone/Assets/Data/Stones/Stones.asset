@@ -81,6 +81,9 @@ MonoBehaviour:
   - {fileID: -8280715435304427436}
   - {fileID: 298520216137666937}
   - {fileID: -3781961111444110064}
+  - {fileID: 4530168849364241916}
+  - {fileID: 4789347238788276148}
+  - {fileID: 4956176233226820663}
 --- !u!114 &298520216137666937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +144,66 @@ MonoBehaviour:
   rightDamage: 0
   bottomDamage: 2
   leftDamage: 0
+--- !u!114 &4530168849364241916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Demon
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: ed7ba654c187fcf4ab15531ea22572cb, type: 3}
+  price: 6
+  topDamage: 2
+  rightDamage: 2
+  bottomDamage: 2
+  leftDamage: 2
+--- !u!114 &4789347238788276148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: FlyingDemon
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: 6a2874c346568dc44ab38e041e44a6dd, type: 3}
+  price: 3
+  topDamage: 4
+  rightDamage: 1
+  bottomDamage: 1
+  leftDamage: 1
+--- !u!114 &4956176233226820663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: DeadSkull
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: 779d4ced577d4b84dad37a7f40db9fee, type: 3}
+  price: 8
+  topDamage: 4
+  rightDamage: 4
+  bottomDamage: 4
+  leftDamage: 4
 --- !u!114 &5748258003591082103
 MonoBehaviour:
   m_ObjectHideFlags: 0
