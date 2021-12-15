@@ -15,8 +15,9 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private GameObject selectablePrefab;
     [SerializeField] private Text priceText;
     [SerializeField] private float columnSize = 2.166637F;
-    [SerializeField] private GameObject menu;
-    
+    [SerializeField] private GameObject menuContainer;
+    [SerializeField] private GameObject menuSectionPrefab;
+
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
@@ -32,11 +33,12 @@ public class KitSelectionMenu : MonoBehaviour
             throw new Exception("The selectable needs to have the SelectableKitItem");
         }
 
-        _menuStartPos = menu.transform.position;
+        _menuStartPos = menuContainer.transform.position;
     }
 
     private void Start()
     {
+        SpawnSections();
         string[] stoneNames = stonesContainer.GetStoneNames();
         foreach (var stoneName in stoneNames)
         {
@@ -71,14 +73,25 @@ public class KitSelectionMenu : MonoBehaviour
         RenderPoints();
     }
 
+    private void SpawnSections()
+    {
+        int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
+        for (int i = 0; i < columns; i++)
+        {
+            GameObject section = Instantiate(menuSectionPrefab, menuContainer.transform, false);
+            Vector3 currentPos = section.transform.position;
+            currentPos.y = -71.93261f - 14.39739f * i + menuContainer.transform.position.y;
+            section.transform.position = currentPos;
+        }
+    }
+
     private void Update()
     {
-        Vector3 currentPos = menu.transform.position;
+        Vector3 currentPos = menuContainer.transform.position;
         int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
-        Debug.Log(columns);
         currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * 3;
         currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
-        menu.transform.position = currentPos;
+        menuContainer.transform.position = currentPos;
     }
 
     public void Ready()
