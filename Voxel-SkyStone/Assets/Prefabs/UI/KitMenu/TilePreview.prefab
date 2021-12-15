@@ -253,6 +253,16 @@ MonoBehaviour:
   outlineObject: {fileID: 4356329323648198411}
   textureObject: {fileID: 9090521446248113029}
   priceText: {fileID: 3245094942283597051}
+  topArrowContainer: {fileID: 8784832604587493214}
+  rightArrowContainer: {fileID: 6509593147172613507}
+  bottomArrowContainer: {fileID: 816311782401719110}
+  leftArrowContainer: {fileID: 4835630482949867197}
+  arrows:
+  - {fileID: 919132149155446097, guid: d270e3e9c16446e4fba9fd20700b068b, type: 3}
+  - {fileID: 919132149155446097, guid: 57172381eb99d8a4a97eadedf27eabaf, type: 3}
+  - {fileID: 919132149155446097, guid: ff6e6c5094e90094e808b05d8bb4dbda, type: 3}
+  - {fileID: 919132149155446097, guid: 23bf0a5c3d0143643bae088ddd287f9a, type: 3}
+  - {fileID: 919132149155446097, guid: aca7b500453bed74385b85b0a3fa8f51, type: 3}
 --- !u!114 &576312849403239620
 MonoBehaviour:
   m_ObjectHideFlags: 0
