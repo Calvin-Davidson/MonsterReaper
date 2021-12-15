@@ -13,6 +13,7 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private KitData kit;
     [SerializeField] private GameObject content;
     [SerializeField] private Text priceText;
+    [SerializeField] private float scrollSpeed = 4;
     [SerializeField] private float columnSize = 2.166637F;
     [SerializeField] private GameObject menuContainer;
     [SerializeField] private GameObject menuSectionPrefab;
@@ -92,7 +93,7 @@ public class KitSelectionMenu : MonoBehaviour
     {
         Vector3 currentPos = menuContainer.transform.position;
         int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
-        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * 3;
+        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
         menuContainer.transform.position = currentPos;
     }
