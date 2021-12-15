@@ -105,6 +105,7 @@ MonoBehaviour:
   - {fileID: 4789347238788276148}
   - {fileID: 4956176233226820663}
   - {fileID: -3126131641198660231}
+  - {fileID: 5142898255533545416}
 --- !u!114 &298520216137666937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +226,26 @@ MonoBehaviour:
   rightDamage: 4
   bottomDamage: 4
   leftDamage: 4
+--- !u!114 &5142898255533545416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Robot
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: 30344d18c1bd6ba49a80e4cb4c274262, type: 3}
+  price: 2
+  topDamage: 2
+  rightDamage: 0
+  bottomDamage: 2
+  leftDamage: 0
 --- !u!114 &5748258003591082103
 MonoBehaviour:
   m_ObjectHideFlags: 0
