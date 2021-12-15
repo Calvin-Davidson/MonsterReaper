@@ -12,6 +12,7 @@ public class PickStoneMenu : MonoBehaviour
     [SerializeField] private GameObject kitItemContainer;
     [SerializeField] private TileSelection tileSelection;
 
+    private GameObject _selectedItem;
     private List<string> _placedStones = new List<string>();
     private Dictionary<string, GameObject> _items = new Dictionary<string, GameObject>();
     private void Awake()
@@ -26,13 +27,19 @@ public class PickStoneMenu : MonoBehaviour
 
             item.GetComponent<UIRaycastEvents>().MouseClick.AddListener(() => SelectStone(stone, item));
         }
+        tileSelection.onStonePlace.AddListener((placedStone) => UseSelectedItem());
     }
 
     private void SelectStone(string stone, GameObject item)
     {
         if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
         tileSelection.SelectedStone = stonesContainer.GetStoneByName(stone);
-        item.RemoveComponent<UIRaycastEvents>();
+        _selectedItem = item;
+    }
+
+    private void UseSelectedItem()
+    {
+        _selectedItem.RemoveComponent<UIRaycastEvents>();
     }
 
     private void Start()

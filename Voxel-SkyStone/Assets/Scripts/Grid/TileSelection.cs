@@ -19,6 +19,7 @@ public class TileSelection : MonoBehaviour
     private void Update()
     {
         if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
+        if (selectedStone == null) return;
         
         if (Input.GetMouseButtonDown(0))
         {
