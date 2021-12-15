@@ -40,15 +40,34 @@ public class KitSelectionMenu : MonoBehaviour
         Debug.Log(Mathf.Min(items.Length, stoneNames.Length));
         for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
         {
-            Debug.Log(stoneNames[i]);
+            string stoneName = stoneNames[i];
             _selectableKitItems.Add(stoneNames[i], items[i]);
             items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
             if (kit.GetStones().Contains(stoneNames[i])) items[i].Select();
+
+            int index = i;
+            items[index].GetOrAddComponent<MouseEvents>().onMouseClick.AddListener(() =>
+            {
+                if (_locked) return;
+                if (items[index].IsSelected)
+                {
+                    items[index].Deselect();
+                    kit.RemoveStone(stoneName);
+                }
+                else
+                {
+                    if (!CanSelect(stonesContainer.GetStoneByName(stoneName))) return;
+                    items[index].Select();
+                    kit.AddStone(stoneName);
+                }
+
+                Validate();
+                RenderPoints();
+            });
         }
 
         for (var i = items.Length - 1; i >= Math.Abs(items.Length - stoneNames.Length - 2); i--)
         {
-            Debug.Log(i);
             Destroy(items[i].gameObject);
         }
 

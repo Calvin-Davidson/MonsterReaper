@@ -5,7 +5,7 @@ using Toolbox.MethodExtensions;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(UIRaycastEvents))]
+[RequireComponent(typeof(MouseEvents))]
 public class SelectableKitItem : MonoBehaviour
 {
     [SerializeField] private MeshRenderer outlineObject;
