@@ -74,8 +74,10 @@ public class KitSelectionMenu : MonoBehaviour
     private void Update()
     {
         Vector3 currentPos = menu.transform.position;
-        currentPos.y -= Input.GetAxis("Mouse ScrollWheel");
-        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * (stonesContainer.GetStoneNames().Length-4f)/4);
+        int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
+        Debug.Log(columns);
+        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * 3;
+        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
         menu.transform.position = currentPos;
     }
 
