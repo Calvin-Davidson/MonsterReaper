@@ -14,20 +14,25 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject selectablePrefab;
     [SerializeField] private Text priceText;
-
+    [SerializeField] private float columnSize = 2.166637F;
+    [SerializeField] private GameObject menu;
+    
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
+    private Vector3 _menuStartPos;
     private bool _locked;
     private bool _isValid = false;
     private Dictionary<string, SelectableKitItem> _selectableKitItems = new Dictionary<string, SelectableKitItem>();
-
+    
     private void Awake()
     {
         if (!selectablePrefab.HasComponent<SelectableKitItem>())
         {
             throw new Exception("The selectable needs to have the SelectableKitItem");
         }
+
+        _menuStartPos = menu.transform.position;
     }
 
     private void Start()
@@ -64,6 +69,14 @@ public class KitSelectionMenu : MonoBehaviour
 
         Validate();
         RenderPoints();
+    }
+
+    private void Update()
+    {
+        Vector3 currentPos = menu.transform.position;
+        currentPos.y -= Input.GetAxis("Mouse ScrollWheel");
+        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * (stonesContainer.GetStoneNames().Length-4f)/4);
+        menu.transform.position = currentPos;
     }
 
     public void Ready()
