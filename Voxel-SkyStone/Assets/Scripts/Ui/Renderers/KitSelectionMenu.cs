@@ -114,6 +114,11 @@ public class KitSelectionMenu : MonoBehaviour
         if (_locked) return;
         Validate();
         kit.Clear();
+        
+        foreach (var selectableKitItem in _selectableKitItems)
+        {
+            selectableKitItem.Value.Deselect();
+        }
         List<string> stones = new List<string>(stonesContainer.GetStoneNames());
         while (stones.Count > 0)
         {
