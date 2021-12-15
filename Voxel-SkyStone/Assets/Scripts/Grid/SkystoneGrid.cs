@@ -90,12 +90,12 @@ public class SkystoneGrid : MonoBehaviour
     public Stone GetStoneRight(Stone stone)
     {
         int index = _stones.IndexOf(stone) + 1;
-        return index < 0 || index >= _stones.Count ? null : _stones[index];
+        return index < 0 || index >= _stones.Count || index % 2 == 0? null : _stones[index];
     }
 
     public Stone GetStoneLeft(Stone stone)
     {
         int index = _stones.IndexOf(stone) - 1;
-        return index < 0 || index >= _stones.Count ? null : _stones[index];
+        return index < 0 || index >= _stones.Count || _stones.IndexOf(stone) % 3 == 0 ? null : _stones[index];
     }
 }
