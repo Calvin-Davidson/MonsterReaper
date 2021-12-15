@@ -12,11 +12,11 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private StonesContainer stonesContainer;
     [SerializeField] private KitData kit;
     [SerializeField] private GameObject content;
-    [SerializeField] private GameObject selectablePrefab;
     [SerializeField] private Text priceText;
     [SerializeField] private float columnSize = 2.166637F;
     [SerializeField] private GameObject menuContainer;
     [SerializeField] private GameObject menuSectionPrefab;
+    [SerializeField] private List<GameObject> kitContainers = new List<GameObject>();
 
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
@@ -28,11 +28,6 @@ public class KitSelectionMenu : MonoBehaviour
     
     private void Awake()
     {
-        if (!selectablePrefab.HasComponent<SelectableKitItem>())
-        {
-            throw new Exception("The selectable needs to have the SelectableKitItem");
-        }
-
         _menuStartPos = menuContainer.transform.position;
     }
 
@@ -40,9 +35,13 @@ public class KitSelectionMenu : MonoBehaviour
     {
         SpawnSections();
         string[] stoneNames = stonesContainer.GetStoneNames();
+        
+        kitContainers.ForEach(container =>
+        {
+            container.get
+        });
         foreach (var stoneName in stoneNames)
         {
-            GameObject image = Instantiate(selectablePrefab, content.transform, false);
             SelectableKitItem item = image.GetComponent<SelectableKitItem>();
             _selectableKitItems.Add(stoneName, item);
 
@@ -82,6 +81,7 @@ public class KitSelectionMenu : MonoBehaviour
             Vector3 currentPos = section.transform.position;
             currentPos.y = -71.93261f - 14.39739f * i + menuContainer.transform.position.y;
             section.transform.position = currentPos;
+            kitContainers.Add(section);
         }
     }
 
