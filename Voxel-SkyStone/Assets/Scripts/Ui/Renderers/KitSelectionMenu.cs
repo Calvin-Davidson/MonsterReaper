@@ -35,37 +35,21 @@ public class KitSelectionMenu : MonoBehaviour
     {
         SpawnSections();
         string[] stoneNames = stonesContainer.GetStoneNames();
-        
-        kitContainers.ForEach(container =>
+
+        SelectableKitItem[] items = menuContainer.GetComponentsInChildren<SelectableKitItem>();
+        Debug.Log(Mathf.Min(items.Length, stoneNames.Length));
+        for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
         {
-            container.get
-        });
-        foreach (var stoneName in stoneNames)
+            Debug.Log(stoneNames[i]);
+            _selectableKitItems.Add(stoneNames[i], items[i]);
+            items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
+            if (kit.GetStones().Contains(stoneNames[i])) items[i].Select();
+        }
+
+        for (var i = items.Length - 1; i >= Math.Abs(items.Length - stoneNames.Length - 2); i--)
         {
-            SelectableKitItem item = image.GetComponent<SelectableKitItem>();
-            _selectableKitItems.Add(stoneName, item);
-
-            item.Render(stonesContainer.GetStoneByName(stoneName));
-            if (kit.GetStones().Contains(stoneName)) item.Select();
-
-            image.GetOrAddComponent<UIRaycastEvents>().MouseClick.AddListener(() =>
-            {
-                if (_locked) return;
-                if (item.IsSelected)
-                {
-                    item.Deselect();
-                    kit.RemoveStone(stoneName);
-                }
-                else
-                {
-                    if (!CanSelect(stonesContainer.GetStoneByName(stoneName))) return;
-                    item.Select();
-                    kit.AddStone(stoneName);
-                }
-
-                Validate();
-                RenderPoints();
-            });
+            Debug.Log(i);
+            Destroy(items[i].gameObject);
         }
 
         Validate();
@@ -79,7 +63,7 @@ public class KitSelectionMenu : MonoBehaviour
         {
             GameObject section = Instantiate(menuSectionPrefab, menuContainer.transform, false);
             Vector3 currentPos = section.transform.position;
-            currentPos.y = -71.93261f - 14.39739f * i + menuContainer.transform.position.y;
+            currentPos.y = -71.93261f - 14.39739f * (i + 1) + menuContainer.transform.position.y;
             section.transform.position = currentPos;
             kitContainers.Add(section);
         }

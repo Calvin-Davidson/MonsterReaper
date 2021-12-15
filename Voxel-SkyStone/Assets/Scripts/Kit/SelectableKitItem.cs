@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Toolbox.MethodExtensions;
@@ -7,27 +8,34 @@ using UnityEngine.UI;
 [RequireComponent(typeof(UIRaycastEvents))]
 public class SelectableKitItem : MonoBehaviour
 {
-    [SerializeField] private GameObject kitObject;
-    [SerializeField] private GameObject selectedObject;
-    [SerializeField] private Text priceText;
-    
+    [SerializeField] private MeshRenderer outlineObject;
+    [SerializeField] private MeshRenderer textureObject;
+    [SerializeField] private TextMesh priceText;
+
     private bool _isSelected = false;
+
+    private Color _defaultColor;
+
+    private void Awake()
+    {
+        _defaultColor = outlineObject.material.color;
+    }
 
     public void Select()
     {
+        outlineObject.material.color = Color.red;
         _isSelected = true;
-        selectedObject.SetActive(true);   
     }
 
     public void Deselect()
     {
+        outlineObject.material.color = _defaultColor;
         _isSelected = false;
-        selectedObject.SetActive(false);
     }
 
     public void Render(StoneData data)
     {
-        kitObject.GetOrAddComponent<RawImage>().texture = data.Texture;
+        textureObject.material.mainTexture = data.Texture;
         priceText.text = data.Price.ToString();
     }
 
