@@ -52,7 +52,7 @@ public class SelectableKitItem : MonoBehaviour
         Material material = textureObject.material;
         
         material.mainTexture = data.Texture;
-        priceText.text = data.Price.ToString();
+        if (priceText != null) priceText.text = data.Price.ToString();
         
         material.EnableKeyword("_EMISSION");
         material.SetTexture (EmissionMap, data.Texture);

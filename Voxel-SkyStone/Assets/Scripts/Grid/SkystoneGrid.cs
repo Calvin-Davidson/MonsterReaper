@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class SkystoneGrid : MonoBehaviour
 {
-    private List<Stone> _stones = new List<Stone>();
+    [SerializeField] private List<Stone> stones = new List<Stone>();
 
-    public List<Stone> Stones => _stones;
+    public List<Stone> Stones => stones;
 
     [SerializeField] private int gridSize = 3;
     [SerializeField] private float tileSize = 1;
@@ -21,15 +21,15 @@ public class SkystoneGrid : MonoBehaviour
     
     private void Start()
     {
-        if (Camera.main is { })
-        {
-            Transform cam = Camera.main.gameObject.transform;
-            cam.position = new Vector3(gridSize / 2, gridSize, -gridSize);
-            cam.Rotate(new Vector3(65, 0, 0));
-        }
+        // if (Camera.main is { })
+        // {
+        //     Transform cam = Camera.main.gameObject.transform;
+        //     cam.position = new Vector3(gridSize / 2, gridSize, -gridSize);
+        //     cam.Rotate(new Vector3(65, 0, 0));
+        // }
 
-        InstantiateTiles();
-        InstantiateOverlay();
+        // InstantiateTiles();
+        // InstantiateOverlay();
     }
     private void InstantiateTiles()
     {
@@ -44,7 +44,7 @@ public class SkystoneGrid : MonoBehaviour
                 var tileCollider = stoneObject.AddComponent<BoxCollider>();
                 tileCollider.size = new Vector3(tileSize, 0.1f, tileSize);
                 
-                _stones.Add(stone);
+                stones.Add(stone);
             }
         } 
     }
@@ -62,14 +62,14 @@ public class SkystoneGrid : MonoBehaviour
 
     public bool CheckGameEnd()
     {
-        if (_stones.Exists(stone => stone.StoneData == null)) return false;
+        if (stones.Exists(stone => stone.StoneData == null)) return false;
         return true;
     }
 
     public VictoryState GetWinner()
     {
-        int opponentStonesCount = (_stones.Count(stone => stone.TeamSide != NetworkClient.Instance.networkData.MyId));
-        int myStonesCount = (_stones.Count(stone => stone.TeamSide == NetworkClient.Instance.networkData.MyId));
+        int opponentStonesCount = (stones.Count(stone => stone.TeamSide != NetworkClient.Instance.networkData.MyId));
+        int myStonesCount = (stones.Count(stone => stone.TeamSide == NetworkClient.Instance.networkData.MyId));
         if (myStonesCount > opponentStonesCount) return VictoryState.Winner;
         if (myStonesCount < opponentStonesCount) return VictoryState.Loser;
         return VictoryState.Draw;
@@ -77,25 +77,25 @@ public class SkystoneGrid : MonoBehaviour
 
     public Stone GetStoneAbove(Stone stone)
     {
-        int index = _stones.IndexOf(stone) - gridSize;
-        return index < 0 || index >= _stones.Count ? null : _stones[index];
+        int index = stones.IndexOf(stone) - gridSize;
+        return index < 0 || index >= stones.Count ? null : stones[index];
     }
 
     public Stone GetStoneUnder(Stone stone)
     {
-        int index = _stones.IndexOf(stone) + gridSize;
-        return index < 0 || index >= _stones.Count ? null : _stones[index];
+        int index = stones.IndexOf(stone) + gridSize;
+        return index < 0 || index >= stones.Count ? null : stones[index];
     }
 
     public Stone GetStoneRight(Stone stone)
     {
-        int index = _stones.IndexOf(stone) + 1;
-        return index < 0 || index >= _stones.Count || index % 2 == 0? null : _stones[index];
+        int index = stones.IndexOf(stone) + 1;
+        return index < 0 || index >= stones.Count || index % 2 == 0? null : stones[index];
     }
 
     public Stone GetStoneLeft(Stone stone)
     {
-        int index = _stones.IndexOf(stone) - 1;
-        return index < 0 || index >= _stones.Count || _stones.IndexOf(stone) % 3 == 0 ? null : _stones[index];
+        int index = stones.IndexOf(stone) - 1;
+        return index < 0 || index >= stones.Count || stones.IndexOf(stone) % 3 == 0 ? null : stones[index];
     }
 }
