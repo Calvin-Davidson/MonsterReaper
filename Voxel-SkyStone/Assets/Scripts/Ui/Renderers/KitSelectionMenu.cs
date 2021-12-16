@@ -12,48 +12,53 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private StonesContainer stonesContainer;
     [SerializeField] private KitData kit;
     [SerializeField] private GameObject content;
-    [SerializeField] private GameObject selectablePrefab;
     [SerializeField] private Text priceText;
+    [SerializeField] private float scrollSpeed = 4;
+    [SerializeField] private float columnSize = 2.166637F;
+    [SerializeField] private GameObject menuContainer;
+    [SerializeField] private GameObject menuSectionPrefab;
+    [SerializeField] private List<GameObject> kitContainers = new List<GameObject>();
 
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
+    private Vector3 _menuStartPos;
     private bool _locked;
     private bool _isValid = false;
     private Dictionary<string, SelectableKitItem> _selectableKitItems = new Dictionary<string, SelectableKitItem>();
-
+    
     private void Awake()
     {
-        if (!selectablePrefab.HasComponent<SelectableKitItem>())
-        {
-            throw new Exception("The selectable needs to have the SelectableKitItem");
-        }
+        _menuStartPos = menuContainer.transform.position;
     }
 
     private void Start()
     {
+        SpawnSections();
         string[] stoneNames = stonesContainer.GetStoneNames();
-        foreach (var stoneName in stoneNames)
+
+        SelectableKitItem[] items = menuContainer.GetComponentsInChildren<SelectableKitItem>();
+        Debug.Log(Mathf.Min(items.Length, stoneNames.Length));
+        for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
         {
-            GameObject image = Instantiate(selectablePrefab, content.transform, false);
-            SelectableKitItem item = image.GetComponent<SelectableKitItem>();
-            _selectableKitItems.Add(stoneName, item);
+            string stoneName = stoneNames[i];
+            _selectableKitItems.Add(stoneNames[i], items[i]);
+            items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
+            if (kit.GetStones().Contains(stoneNames[i])) items[i].Select();
 
-            item.Render(stonesContainer.GetStoneByName(stoneName));
-            if (kit.GetStones().Contains(stoneName)) item.Select();
-
-            image.GetOrAddComponent<UIRaycastEvents>().MouseClick.AddListener(() =>
+            int index = i;
+            items[index].GetOrAddComponent<MouseEvents>().onMouseClick.AddListener(() =>
             {
                 if (_locked) return;
-                if (item.IsSelected)
+                if (items[index].IsSelected)
                 {
-                    item.Deselect();
+                    items[index].Deselect();
                     kit.RemoveStone(stoneName);
                 }
                 else
                 {
                     if (!CanSelect(stonesContainer.GetStoneByName(stoneName))) return;
-                    item.Select();
+                    items[index].Select();
                     kit.AddStone(stoneName);
                 }
 
@@ -62,8 +67,35 @@ public class KitSelectionMenu : MonoBehaviour
             });
         }
 
+        for (var i = items.Length - 1; i >= Math.Abs(items.Length - stoneNames.Length - 2); i--)
+        {
+            Destroy(items[i].gameObject);
+        }
+
         Validate();
         RenderPoints();
+    }
+
+    private void SpawnSections()
+    {
+        int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
+        for (int i = 0; i < columns; i++)
+        {
+            GameObject section = Instantiate(menuSectionPrefab, menuContainer.transform, false);
+            Vector3 currentPos = section.transform.position;
+            currentPos.y = -71.93261f - 14.39739f * (i + 1) + menuContainer.transform.position.y;
+            section.transform.position = currentPos;
+            kitContainers.Add(section);
+        }
+    }
+
+    private void Update()
+    {
+        Vector3 currentPos = menuContainer.transform.position;
+        int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
+        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
+        menuContainer.transform.position = currentPos;
     }
 
     public void Ready()
@@ -83,6 +115,11 @@ public class KitSelectionMenu : MonoBehaviour
         if (_locked) return;
         Validate();
         kit.Clear();
+        
+        foreach (var selectableKitItem in _selectableKitItems)
+        {
+            selectableKitItem.Value.Deselect();
+        }
         List<string> stones = new List<string>(stonesContainer.GetStoneNames());
         while (stones.Count > 0)
         {
