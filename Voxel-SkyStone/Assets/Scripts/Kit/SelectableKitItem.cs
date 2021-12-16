@@ -22,6 +22,7 @@ public class SelectableKitItem : MonoBehaviour
     private bool _isSelected = false;
 
     private Color _defaultColor;
+    private static readonly int EmissionMap = Shader.PropertyToID("_EmissionMap");
 
     private void Awake()
     {
@@ -42,8 +43,13 @@ public class SelectableKitItem : MonoBehaviour
 
     public void Render(StoneData data)
     {
-        textureObject.material.mainTexture = data.Texture;
+        Material material = textureObject.material;
+        
+        material.mainTexture = data.Texture;
         priceText.text = data.Price.ToString();
+        
+        material.EnableKeyword("_EMISSION");
+        material.SetTexture (EmissionMap, data.Texture);
         
         SpawnArrows(data);
     }

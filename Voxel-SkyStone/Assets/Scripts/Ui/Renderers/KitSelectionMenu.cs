@@ -38,7 +38,6 @@ public class KitSelectionMenu : MonoBehaviour
         string[] stoneNames = stonesContainer.GetStoneNames();
 
         SelectableKitItem[] items = menuContainer.GetComponentsInChildren<SelectableKitItem>();
-        Debug.Log(Mathf.Min(items.Length, stoneNames.Length));
         for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
         {
             string stoneName = stoneNames[i];
@@ -65,11 +64,6 @@ public class KitSelectionMenu : MonoBehaviour
                 Validate();
                 RenderPoints();
             });
-        }
-
-        for (var i = items.Length - 1; i >= Math.Abs(items.Length - stoneNames.Length - 2); i--)
-        {
-            Destroy(items[i].gameObject);
         }
 
         Validate();
