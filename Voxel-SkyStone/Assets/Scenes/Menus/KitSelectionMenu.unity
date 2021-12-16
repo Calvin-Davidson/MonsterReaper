@@ -2348,7 +2348,7 @@ MonoBehaviour:
   kit: {fileID: 11400000, guid: 1af419a31e2f40148be8ef5662ffa38a, type: 2}
   content: {fileID: 7475608}
   priceText: {fileID: 1126756441}
-  scrollSpeed: 4
+  scrollSpeed: 10
   columnSize: 7.1
   menuContainer: {fileID: 664109057}
   menuSectionPrefab: {fileID: 7668910780524018153, guid: 53bfaca902dc8b0439d209bb8cec1c12, type: 3}
