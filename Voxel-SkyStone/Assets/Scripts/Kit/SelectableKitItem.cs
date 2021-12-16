@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Toolbox.MethodExtensions;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MouseEvents))]
@@ -18,6 +19,9 @@ public class SelectableKitItem : MonoBehaviour
     [SerializeField] private GameObject leftArrowContainer;
 
     [SerializeField] private GameObject[] arrows;
+
+    public UnityEvent onSelect = new UnityEvent();
+    public UnityEvent onDeselect = new UnityEvent();
     
     private bool _isSelected = false;
 
@@ -31,12 +35,14 @@ public class SelectableKitItem : MonoBehaviour
 
     public void Select()
     {
+        onSelect?.Invoke();
         outlineObject.material.color = Color.red;
         _isSelected = true;
     }
 
     public void Deselect()
     {
+        onDeselect?.Invoke();
         outlineObject.material.color = _defaultColor;
         _isSelected = false;
     }
