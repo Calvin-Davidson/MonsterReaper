@@ -20,6 +20,7 @@ public class LoadingTile : MonoBehaviour
     {
         Texture texture = stones.GetRandom().Texture;
         frontRenderer.material.mainTexture = texture;
+        backRenderer.material.EnableKeyword("_EMISSION");
         frontRenderer.material.SetTexture (EmissionMap, texture);
     }
 
@@ -27,6 +28,7 @@ public class LoadingTile : MonoBehaviour
     {
         Texture texture = stones.GetRandom().Texture;
         backRenderer.material.mainTexture = texture;
+        backRenderer.material.EnableKeyword("_EMISSION");
         backRenderer.material.SetTexture (EmissionMap, texture);
     }
 }
