@@ -8,6 +8,7 @@ public class LoadingTile : MonoBehaviour
     [SerializeField] private MeshRenderer frontRenderer;
     [SerializeField] private MeshRenderer backRenderer;
     [SerializeField] private StonesContainer stones;
+    private static readonly int EmissionMap = Shader.PropertyToID("_EmissionMap");
 
     private void Awake()
     {
@@ -17,13 +18,15 @@ public class LoadingTile : MonoBehaviour
 
     private void ChangeFrontTexture()
     {
-        Debug.Log("front texture");
-        frontRenderer.material.mainTexture = stones.GetRandom().Texture;
+        Texture texture = stones.GetRandom().Texture;
+        frontRenderer.material.mainTexture = texture;
+        frontRenderer.material.SetTexture (EmissionMap, texture);
     }
 
     private void ChangeBackTexture()
     {
-        Debug.Log("back texture");
-        backRenderer.material.mainTexture = stones.GetRandom().Texture;
+        Texture texture = stones.GetRandom().Texture;
+        backRenderer.material.mainTexture = texture;
+        backRenderer.material.SetTexture (EmissionMap, texture);
     }
 }
