@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 public class MouseEvents : MonoBehaviour
 {
-    [SerializeField] private UnityEvent onMouseEnter;
-    [SerializeField] private UnityEvent onMouseExit;
-    [SerializeField] private UnityEvent onMouseClick;
+    public UnityEvent onMouseEnter;
+    public UnityEvent onMouseExit;
+    public UnityEvent onMouseClick;
 
     private bool _isMouseOver = false;
 
