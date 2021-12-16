@@ -20,6 +20,26 @@ MonoBehaviour:
   rightDamage: 0
   bottomDamage: 2
   leftDamage: 0
+--- !u!114 &-8031303912656193670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Bean
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: 049c52d02a6dc354f93a73ad04652679, type: 3}
+  price: 1
+  topDamage: 1
+  rightDamage: 0
+  bottomDamage: 1
+  leftDamage: 0
 --- !u!114 &-3781961111444110064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +80,26 @@ MonoBehaviour:
   rightDamage: 1
   bottomDamage: 1
   leftDamage: 1
+--- !u!114 &-1593771987479553867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25b1664be163f749bbacf7ac8b47d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Face
+  tileObject: {fileID: 0}
+  texture: {fileID: 2800000, guid: adf864b268fe50d4b8027abf994901df, type: 3}
+  price: 5
+  topDamage: 2
+  rightDamage: 3
+  bottomDamage: 2
+  leftDamage: 3
 --- !u!114 &-1085526342018003303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,6 +147,8 @@ MonoBehaviour:
   - {fileID: -3126131641198660231}
   - {fileID: 5142898255533545416}
   - {fileID: 2426115958143040235}
+  - {fileID: -1593771987479553867}
+  - {fileID: -8031303912656193670}
 --- !u!114 &298520216137666937
 MonoBehaviour:
   m_ObjectHideFlags: 0
