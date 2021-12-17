@@ -52,6 +52,8 @@ public class PickStoneMenu : MonoBehaviour
     {
         Vector3 currentPos = menuContainer.transform.position;
         int columns = Mathf.CeilToInt((kit.GetStones().Length - 2));
+        if (columns <= 0) return;
+        
         currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
         menuContainer.transform.position = currentPos;
@@ -59,14 +61,15 @@ public class PickStoneMenu : MonoBehaviour
     
     private void SelectStone(string stone, SelectableKitItem item)
     {
-        if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
         tileSelection.SelectedStone = stonesContainer.GetStoneByName(stone);
         _selectedItem = item;
     }
 
     private void UseSelectedItem()
     {
+        _selectedItem.Deselect();
         _selectedItem.gameObject.RemoveComponent<MouseEvents>();
+        _selectedItem.gameObject.RemoveComponent<Collider>();
     }
 
     private void Start()
