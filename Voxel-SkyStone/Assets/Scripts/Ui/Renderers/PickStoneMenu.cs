@@ -51,7 +51,7 @@ public class PickStoneMenu : MonoBehaviour
     private void Update()
     {
         Vector3 currentPos = menuContainer.transform.position;
-        int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 2));
+        int columns = Mathf.CeilToInt((kit.GetStones().Length - 2));
         currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
         menuContainer.transform.position = currentPos;
