@@ -61,14 +61,15 @@ public class PickStoneMenu : MonoBehaviour
     
     private void SelectStone(string stone, SelectableKitItem item)
     {
-        if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
         tileSelection.SelectedStone = stonesContainer.GetStoneByName(stone);
         _selectedItem = item;
     }
 
     private void UseSelectedItem()
     {
+        _selectedItem.Deselect();
         _selectedItem.gameObject.RemoveComponent<MouseEvents>();
+        _selectedItem.gameObject.RemoveComponent<Collider>();
     }
 
     private void Start()
