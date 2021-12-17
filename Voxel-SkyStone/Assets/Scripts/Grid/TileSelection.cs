@@ -29,6 +29,7 @@ public class TileSelection : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 hit.transform.gameObject.TryGetComponent<Stone>(out Stone clickedStone);
+                if (clickedStone == null) return;
                 if (clickedStone.StoneData != null) return;
 
                 clickedStone.TeamSide = NetworkClient.Instance.networkData.MyId;
