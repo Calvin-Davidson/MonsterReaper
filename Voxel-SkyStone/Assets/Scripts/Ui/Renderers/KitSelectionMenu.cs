@@ -139,9 +139,7 @@ public class KitSelectionMenu : MonoBehaviour
     {
         int pointsLeft = 20;
         foreach (var stone in kit.GetStones()) pointsLeft -= stonesContainer.GetStoneByName(stone).Price;
-        Debug.Log(pointsLeft);
-        Debug.Log(stoneData.Price);
-        return ((pointsLeft) >= stoneData.Price);
+        return (pointsLeft >= stoneData.Price);
     }
 
     private void Validate()
