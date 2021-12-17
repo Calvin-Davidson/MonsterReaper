@@ -9,30 +9,64 @@ public class PickStoneMenu : MonoBehaviour
 {
     [SerializeField] private KitData kit;
     [SerializeField] private StonesContainer stonesContainer;
-    [SerializeField] private GameObject kitItemContainer;
     [SerializeField] private TileSelection tileSelection;
+    [SerializeField] private GameObject menuContainer;
+    [SerializeField] private float scrollSpeed;
+    [SerializeField] private float columnSize;
 
+    private SelectableKitItem _selectedItem;
     private List<string> _placedStones = new List<string>();
     private Dictionary<string, GameObject> _items = new Dictionary<string, GameObject>();
+    private Vector2 _menuStartPos;
+
     private void Awake()
     {
+        _menuStartPos = menuContainer.transform.position;
+
         kit = Instantiate(kit);
-        foreach (var stone in kit.GetStones())
+        
+        string[] stoneNames = kit.GetStones();
+
+        SelectableKitItem[] items = menuContainer.GetComponentsInChildren<SelectableKitItem>();
+        for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
         {
-            GameObject item = new GameObject(stone, typeof(RawImage), typeof(UIRaycastEvents));
-            item.transform.parent = kitItemContainer.transform;
-            item.GetComponent<RawImage>().texture = stonesContainer.GetStoneByName(stone).Texture;
-            _items.Add(stone, item);
+            string stoneName = stoneNames[i];
+            items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
 
-            item.GetComponent<UIRaycastEvents>().MouseClick.AddListener(() => SelectStone(stone, item));
+            int index = i;
+            items[index].GetOrAddComponent<MouseEvents>().onMouseClick.AddListener(() =>
+            {
+                if (!items[index].IsSelected)
+                {
+                    if (_selectedItem != null) _selectedItem.Deselect();
+                    SelectStone(stoneName, items[index]);
+                    items[index].Select();
+                }
+            });
         }
+        
+        tileSelection.onStonePlace.AddListener((placedStone) => UseSelectedItem());
     }
-
-    private void SelectStone(string stone, GameObject item)
+    
+    private void Update()
+    {
+        Vector3 currentPos = menuContainer.transform.position;
+        int columns = Mathf.CeilToInt((kit.GetStones().Length - 2));
+        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
+        menuContainer.transform.position = currentPos;
+    }
+    
+    private void SelectStone(string stone, SelectableKitItem item)
     {
         if (!NetworkClient.Instance.networkData.IsMyTurn()) return;
         tileSelection.SelectedStone = stonesContainer.GetStoneByName(stone);
-        item.RemoveComponent<UIRaycastEvents>();
+        _selectedItem = item;
+    }
+
+    private void UseSelectedItem()
+    {
+        _selectedItem.gameObject.RemoveComponent<MouseEvents>();
     }
 
     private void Start()

@@ -8,6 +8,7 @@ namespace Grid
         [SerializeField] private int teamSide;
         [SerializeField] private StoneData stoneData;
         [SerializeField] private GameObject tileObjectContainer;
+        [SerializeField] private MeshRenderer tileOutline;
 
         [SerializeField] private GameObject topArrowContainer;
         [SerializeField] private GameObject rightArrowContainer;
@@ -31,6 +32,11 @@ namespace Grid
             SpawnArrows();
         }
 
+        private void RenderTileOutlineColor()
+        {
+            tileOutline.material.color = teamSide == NetworkClient.Instance.networkData.MyId ? Color.green : Color.red;
+        }
+        
         private void SpawnArrows()
         {
             if (stoneData.TopDamage > 0) SpawnArrow(topArrowContainer, arrows[stoneData.TopDamage-1]);
@@ -56,6 +62,7 @@ namespace Grid
             set
             {
                 teamSide = value;
+                RenderTileOutlineColor();
                 onTeamChange?.Invoke();
             }
         }

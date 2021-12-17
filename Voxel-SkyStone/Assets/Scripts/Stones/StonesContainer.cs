@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 //[CreateAssetMenu]  // Only 1 instance should be made!
 public class StonesContainer : ScriptableObject
@@ -20,6 +21,10 @@ public class StonesContainer : ScriptableObject
     return stones.FirstOrDefault(data => data.Name == stoneName);
   }
 
+  public StoneData GetRandom()
+  {
+    return stones[Random.Range(0, stones.Count)];
+  }
 
 
 #if UNITY_EDITOR
