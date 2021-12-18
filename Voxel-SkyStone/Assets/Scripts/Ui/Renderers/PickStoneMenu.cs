@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Toolbox.MethodExtensions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +16,8 @@ public class PickStoneMenu : MonoBehaviour
     [SerializeField] private float columnSize;
 
     private SelectableKitItem _selectedItem;
-    private List<string> _placedStones = new List<string>();
-    private Dictionary<string, GameObject> _items = new Dictionary<string, GameObject>();
+    private int _selectedItemSlot = 0;
+    private List<SelectableKitItem> _items = new List<SelectableKitItem>();
     private Vector2 _menuStartPos;
 
     private void Awake()
@@ -27,25 +28,39 @@ public class PickStoneMenu : MonoBehaviour
         
         string[] stoneNames = kit.GetStones();
 
-        SelectableKitItem[] items = menuContainer.GetComponentsInChildren<SelectableKitItem>();
-        for (var i = 0; i < Mathf.Min(items.Length, stoneNames.Length); i++)
+        _items = menuContainer.GetComponentsInChildren<SelectableKitItem>().ToList();
+        for (var i = 0; i < Mathf.Min(_items.Count, stoneNames.Length); i++)
         {
             string stoneName = stoneNames[i];
-            items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
+            _items[i].Render(stonesContainer.GetStoneByName(stoneNames[i]));
 
             int index = i;
-            items[index].GetOrAddComponent<MouseEvents>().onMouseClick.AddListener(() =>
+            _items[index].GetOrAddComponent<MouseEvents>().onMouseClick.AddListener(() =>
             {
-                if (!items[index].IsSelected)
+                if (!_items[index].IsSelected)
                 {
                     if (_selectedItem != null) _selectedItem.Deselect();
-                    SelectStone(stoneName, items[index]);
-                    items[index].Select();
+                    SelectStone(stoneName, _items[index]);
+                    _items[index].Select();
                 }
             });
         }
         
         tileSelection.onStonePlace.AddListener((placedStone) => UseSelectedItem());
+    }
+
+    public void NextItem()
+    {
+        _selectedItemSlot += 1;
+        _selectedItemSlot = Mathf.Clamp(_selectedItemSlot, 0, _items.Count);
+        _selectedItem = _items[_selectedItemSlot];
+    }
+
+    public void PreviousItem()
+    {
+        _selectedItemSlot -= 1;
+        _selectedItemSlot = Mathf.Clamp(_selectedItemSlot, 0, _items.Count);
+        _selectedItem = _items[_selectedItemSlot];
     }
     
     private void Update()
@@ -68,31 +83,24 @@ public class PickStoneMenu : MonoBehaviour
     private void UseSelectedItem()
     {
         _selectedItem.Deselect();
-        _selectedItem.gameObject.RemoveComponent<MouseEvents>();
-        _selectedItem.gameObject.RemoveComponent<Collider>();
+        _items.Remove(_selectedItem);
+        Destroy(_selectedItem.gameObject);
+        PreviousItem();
+        Render();
     }
 
     private void Start()
     {
         tileSelection.onStonePlace.AddListener((stoneName) =>
         {
-            Remove(stoneName);
             Render();
         });
     }
 
     private void Render()
     {
-        foreach (var keyValuePair in _items)
-        {
-            if (!_placedStones.Contains(keyValuePair.Key)) continue;
-            ColorUtility.TryParseHtmlString("#4D4D4D", out var color);
-            keyValuePair.Value.GetComponent<RawImage>().color = color;
-        }
-    }
-
-    public void Remove(String stoneName)
-    {
-        _placedStones.Add(stoneName);
+        // todo rotation table rendering magic.
+        
+        
     }
 }
