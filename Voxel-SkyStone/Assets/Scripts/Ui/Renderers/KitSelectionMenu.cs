@@ -26,10 +26,12 @@ public class KitSelectionMenu : MonoBehaviour
     private bool _locked;
     private bool _isValid = false;
     private Dictionary<string, SelectableKitItem> _selectableKitItems = new Dictionary<string, SelectableKitItem>();
+    private Vector3 _targetPosition = Vector3.zero;
     
     private void Awake()
     {
         _menuStartPos = menuContainer.transform.position;
+        _targetPosition = _menuStartPos;
     }
 
     private void Start()
@@ -87,8 +89,10 @@ public class KitSelectionMenu : MonoBehaviour
     {
         Vector3 currentPos = menuContainer.transform.position;
         int columns = Mathf.CeilToInt((stonesContainer.GetStoneNames().Length - 8) / 4f);
-        currentPos.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        currentPos.y = Mathf.Clamp(currentPos.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
+        _targetPosition.y -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        _targetPosition.y = Mathf.Clamp(_targetPosition.y, _menuStartPos.y, _menuStartPos.y + columnSize * columns);
+        
+        currentPos.y = Mathf.Lerp(currentPos.y, _targetPosition.y, 0.25f);
         menuContainer.transform.position = currentPos;
     }
 
