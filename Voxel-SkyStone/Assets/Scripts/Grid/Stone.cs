@@ -23,10 +23,15 @@ namespace Grid
         public UnityEvent onTeamChange = new UnityEvent();
 
         private int _gridIndex;
+        private static readonly int EmissionMap = Shader.PropertyToID("_EmissionMap");
 
         private void UpdateStoneData()
         {
-            tileObjectContainer.GetComponent<MeshRenderer>().material.mainTexture = stoneData.Texture;
+            var material = tileObjectContainer.GetComponent<MeshRenderer>().material;
+            material.mainTexture = stoneData.Texture;
+            material.EnableKeyword("_EMISSION");
+            material.SetTexture (EmissionMap, stoneData.Texture);
+
             onStoneDataUpdate?.Invoke();
             
             SpawnArrows();
