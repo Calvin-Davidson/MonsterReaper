@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NetworkData
   m_EditorClassIdentifier: 
   localhost: 0
-  wss: 0
+  wss: 1
