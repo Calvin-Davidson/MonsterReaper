@@ -101,12 +101,14 @@ public class KitSelectionMenu : MonoBehaviour
 
     public void Ready()
     {
+        if (!this.gameObject.activeSelf) return;
         NetworkSendHandler sendHandler = FindObjectOfType<NetworkSendHandler>();
         sendHandler.SendReady(kit.GetStones());
     }
 
     public void Unready()
     {
+        if (!this.gameObject.activeSelf) return;
         NetworkSendHandler sendHandler = FindObjectOfType<NetworkSendHandler>();
         sendHandler.SendUnready();
     }
@@ -114,6 +116,7 @@ public class KitSelectionMenu : MonoBehaviour
     public void SelectRandomKit()
     {
         if (_locked) return;
+        if (!this.gameObject.activeSelf) return;
         Validate();
         kit.Clear();
         
