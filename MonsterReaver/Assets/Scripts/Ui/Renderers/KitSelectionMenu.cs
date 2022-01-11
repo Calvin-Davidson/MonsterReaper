@@ -17,8 +17,11 @@ public class KitSelectionMenu : MonoBehaviour
     [SerializeField] private float columnSize = 2.166637F;
     [SerializeField] private GameObject menuContainer;
     [SerializeField] private GameObject menuSectionPrefab;
+    
+    [SerializeField] private float defaultSpawnOffset = -71.93261f;
+    [SerializeField] private float sectionOffset = 14.39739f;
     [SerializeField] private List<GameObject> kitContainers = new List<GameObject>();
-
+    
     public UnityEvent onKitValid = new UnityEvent();
     public UnityEvent onKitInvalid = new UnityEvent();
 
@@ -79,7 +82,7 @@ public class KitSelectionMenu : MonoBehaviour
         {
             GameObject section = Instantiate(menuSectionPrefab, menuContainer.transform, false);
             Vector3 currentPos = section.transform.position;
-            currentPos.y = -71.93261f - 14.39739f * (i + 1) + menuContainer.transform.position.y;
+            currentPos.y = defaultSpawnOffset - sectionOffset * (i + 1) + menuContainer.transform.position.y;
             section.transform.position = currentPos;
             kitContainers.Add(section);
         }
