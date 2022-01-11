@@ -61,7 +61,11 @@ public class KitSelectionMenu : MonoBehaviour
                 }
                 else
                 {
-                    if (!CanSelect(stonesContainer.GetStoneByName(stoneName))) return;
+                    if (!CanSelect(stonesContainer.GetStoneByName(stoneName)))
+                    {
+                        items[index].SelectInvalid();
+                        return;
+                    }
                     items[index].Select();
                     kit.AddStone(stoneName);
                 }

@@ -22,6 +22,7 @@ public class SelectableKitItem : MonoBehaviour
 
     public UnityEvent onSelect = new UnityEvent();
     public UnityEvent onDeselect = new UnityEvent();
+    public UnityEvent onSelectInvalid = new UnityEvent();
     
     private bool _isSelected = false;
 
@@ -73,7 +74,10 @@ public class SelectableKitItem : MonoBehaviour
         Instantiate(arrow, container.transform, false);
     }
 
-
-
+    public void SelectInvalid()
+    {
+        onSelectInvalid?.Invoke();
+    }
+    
     public bool IsSelected => _isSelected;
 }
